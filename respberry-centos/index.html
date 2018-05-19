@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6.2.0" color="#222">
+
+
+  <link rel="manifest" href="/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'WVM7F0H3K4',
+      apiKey: '0e5efbfc5517f5a18ec6264b12f8d67a',
+      indexName: 'personal_blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="树莓派树莓派（Raspberry Pi），是一款基于 Linux 的单板机电脑。它由英国的树莓派基金会所开发，目的是以低价硬件及自由软件促进学校的基本计算机科学教育。 它使用的是基于 ARM 架构的博通芯片，和现在大多数智能路由器选用的硬件大体相当，不过最新款的树莓派3 Model B 则使用了 ARM 64 位的处理器，性能上已经能够超越路由器好多了。">
+<meta name="keywords" content="Raspberry Pi,CentOS,Raspbian,Ubuntu,Windows,arm64,armv7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派的初探">
+<meta property="og:url" content="https://zesming.com/respberry-centos/index.html">
+<meta property="og:site_name" content="Ming&#39;s pages">
+<meta property="og:description" content="树莓派树莓派（Raspberry Pi），是一款基于 Linux 的单板机电脑。它由英国的树莓派基金会所开发，目的是以低价硬件及自由软件促进学校的基本计算机科学教育。 它使用的是基于 ARM 架构的博通芯片，和现在大多数智能路由器选用的硬件大体相当，不过最新款的树莓派3 Model B 则使用了 ARM 64 位的处理器，性能上已经能够超越路由器好多了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://zesming.com/images/respberry_1.JPG">
+<meta property="og:image" content="https://zesming.com/images/respberry_2.JPG">
+<meta property="og:image" content="https://zesming.com/images/respberry_3.JPG">
+<meta property="og:image" content="https://zesming.com/images/respberry_4.JPG">
+<meta property="og:updated_time" content="2018-05-13T11:46:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派的初探">
+<meta name="twitter:description" content="树莓派树莓派（Raspberry Pi），是一款基于 Linux 的单板机电脑。它由英国的树莓派基金会所开发，目的是以低价硬件及自由软件促进学校的基本计算机科学教育。 它使用的是基于 ARM 架构的博通芯片，和现在大多数智能路由器选用的硬件大体相当，不过最新款的树莓派3 Model B 则使用了 ARM 64 位的处理器，性能上已经能够超越路由器好多了。">
+<meta name="twitter:image" content="https://zesming.com/images/respberry_1.JPG">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://zesming.com/respberry-centos/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>树莓派的初探 | Ming's pages</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93519419-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-93519419-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?37766885fbfe1bac69ba3ce8527f3433";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ming's pages</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/respberry-centos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zesming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming's pages">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">树莓派的初探
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-25 14:24:01" itemprop="dateCreated datePublished" datetime="2017-03-25T14:24:01+08:00">2017-03-25</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/respberry-centos/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/respberry-centos/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/respberry-centos/" class="leancloud_visitors" data-flag-title="树莓派的初探">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">4.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">4 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="树莓派"><a href="#树莓派" class="headerlink" title="树莓派"></a>树莓派</h3><p>树莓派（Raspberry Pi），是一款基于 Linux 的单板机电脑。它由英国的树莓派基金会所开发，目的是以低价硬件及自由软件促进学校的基本计算机科学教育。</p>
+<p>它使用的是基于 ARM 架构的博通芯片，和现在大多数智能路由器选用的硬件大体相当，不过最新款的树莓派3 Model B 则使用了 ARM 64 位的处理器，性能上已经能够超越路由器好多了。</p>
+<a id="more"></a>
+<h3 id="购入"><a href="#购入" class="headerlink" title="购入"></a>购入</h3><p>其实当时考虑的是想给我们家的梯子提个速，顺带看看有没有什么其他能玩的小东西，反正也不贵，所以就去马云家选购了一套 Respberry 3 Model B。</p>
+<p>回来简单拼了一下，感觉还挺好看的，满满的极客塑料感……</p>
+<p><img src="/images/respberry_1.JPG" alt=""></p>
+<p><img src="/images/respberry_2.JPG" alt=""></p>
+<p>由于树莓派的硬盘实际上就是个 MicroSD 卡，考虑到性能原因，官方推荐使用 Class 10 的卡，所以我又在奶茶东购入了一张 32G 的卡，如果说单纯装一个 Linux 的话，32G 足够了。</p>
+<p>前前后后算下来，这一套机器花了300软妹币左右吧，综合考虑下来，性价比还是挺高的。</p>
+<h3 id="ROM"><a href="#ROM" class="headerlink" title="ROM"></a>ROM</h3><p>官方推荐的是一个名为 Respbian 的 Linux 系统，这还算是个挺完备的系统，有图形化界面，各项功能驱动都挺齐全。不过对于我这种压根就没有想把它当电脑用的人来说，图形化界面有点多余。看了下其他支持 ARM 的 OS，还有 Ubuntu 和 CentOS。我对 Ubuntu 向来就没有什么感觉，可能就是因为 <code>apt-get</code> 比 <code>yum</code> 敲起来麻烦。所以只剩下 CentOS 了。</p>
+<p>PS：其实支持树莓派的系统还有一些，甚至 Windows 10 的物联网版也是支持的，不过我真想不出来用 Windows 除了玩游戏还能干啥？</p>
+<h3 id="装系统"><a href="#装系统" class="headerlink" title="装系统"></a>装系统</h3><p>到 CentOS 的官网，扒到一篇 <a href="https://wiki.centos.org/SpecialInterestGroup/AltArch/Arm32/RaspberryPi3" target="_blank" rel="noopener">wiki</a>，还专门介绍如何在树莓派上装 CentOS。不过……貌似只有32位的系统，64位那里写着我们熟悉的 <code>Coming Soon</code>。</p>
+<p>唉，无所谓了，按照它的 Quick Start，我们找到它的 32bit image 下载地址，下载下来。</p>
+<p>接下来，如果按照 wiki 上描述的步骤，看起来需要用到 <code>XZ Utils</code> 来搞，通过 wiki 上提供的命令将 CentOS 的镜像写入到卡上，还挺简单：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dd <span class="keyword">if</span>=CentOS-Userland-7-armv7hl-Minimal-RaspberryPi3.img of=/dev/mmcblk0 bs=8192; sync</span><br></pre></td></tr></table></figure>
+<p>如果你没有 Linux 系统，可以到 Windows 上下载一个名为 <code>Win32DiskImager</code> 的软件（看来有时候 Windows 还是能做一些有用的事情的）。先解压下载的压缩包，然后通过图形化界面把 CentOS 的镜像写入到卡上。</p>
+<p><img src="/images/respberry_3.JPG" alt=""></p>
+<p><img src="/images/respberry_4.JPG" alt=""></p>
+<p>尽管官方介绍说，1.2A 的电源就可以，但是为了正常稳定使用，还是建议使用 2.5A 的电源，因为一旦火力全开，挂上各种传感器，整个电力需求还是蛮大的。</p>
+<p>把写好的卡插进机器，连接上有线网络（因为一开始 Wi-Fi 还没有安装驱动），链接上电源启动机器，大概 5s 就会启动好了，完后可能就需要去路由器里面看分配的 IP 多少，通过 IP 登录到机器上（Windows 下需要个软件，其他系统直接以 root 用户 SSH 就好了，密码就是 <code>centos</code>）。</p>
+<p>另外有网友提到，内存卡写入系统后被重新分区，导致很大一部分空闲分区浪费，需要输入如下命令将空闲分区重新分配：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch /.rootfs-repartition</span><br><span class="line">$ systemctl reboot</span><br></pre></td></tr></table></figure>
+<p>另外需要提一点，因为 CentOS 默认没有安装 Wi-Fi 的相关模块，如果说想要使用 Wi-Fi 功能的话，需要执行以下两行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.bin &gt; /usr/lib/firmware/brcm/brcmfmac43430-sdio.bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.txt &gt; /usr/lib/firmware/brcm/brcmfmac43430-sdio.txt</span><br></pre></td></tr></table></figure>
+<p>完成后重启系统。</p>
+<h3 id="看下系统信息"><a href="#看下系统信息" class="headerlink" title="看下系统信息"></a>看下系统信息</h3><p>登录上来后，第一件事就想看看硬件信息以确定我买的是不是正品（多年以来和 JS 斗争养成的习惯）。</p>
+<p>首先看看 CPU：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lscpu</span><br></pre></td></tr></table></figure>
+<p>结果出乎我的意料：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Architecture:          armv7l</span><br><span class="line">Byte Order:            Little Endian</span><br><span class="line">CPU(s):                4</span><br><span class="line">On-line CPU(s) list:   0-3</span><br><span class="line">Thread(s) per core:    1</span><br><span class="line">Core(s) per socket:    4</span><br><span class="line">座：                 1</span><br><span class="line">型号名称：        ARMv7 Processor rev 4 (v7l)</span><br></pre></td></tr></table></figure>
+<p>大哥，说好的 ARM64 呢？怎么变成 ARMv7l 了？</p>
+<p>又看了眼 <code>cpuinfo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">processor	: 0</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 1</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 2</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">processor	: 3</span><br><span class="line">model name	: ARMv7 Processor rev 4 (v7l)</span><br><span class="line">BogoMIPS	: 38.40</span><br><span class="line">Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32 </span><br><span class="line">CPU implementer	: 0x41</span><br><span class="line">CPU architecture: 7</span><br><span class="line">CPU variant	: 0x0</span><br><span class="line">CPU part	: 0xd03</span><br><span class="line">CPU revision	: 4</span><br><span class="line"></span><br><span class="line">Hardware	: BCM2835</span><br><span class="line">Revision	: a22082</span><br><span class="line">Serial		: 00000000a9898d83</span><br></pre></td></tr></table></figure>
+<p>奇怪，最后的 <code>Hardware</code> 竟然变成了树莓派一代的 SoC，不过下面的 <code>Revision</code> 则是三代 B 的系列号。</p>
+<p>去网上搜搜，看到一个网友提到了这样一段话。</p>
+<blockquote>
+<p>可能是因为为了兼容旧版本的软件和操作系统，在树莓派3上依然使用了 ARMv7 的32位指令集，即使芯片支持 ARMv8 指令集，但由于考虑到兼容性，现在还没有推出64位的系统和软件来运行，所以固件依然保留32位。</p>
+</blockquote>
+<p>所以说，很有可能是因为 CentOS 目前并没有推出64位的系统，而目前32位的系统则是简单使用了之前的内核。</p>
+<p>综合来看，有 Wi-Fi 有蓝牙，系统里面也有树莓派3的各种痕迹，单纯从 CPU 的信息来判定感觉有些太片面。所以就先凑合着吧，记得最初我的第一台笔记本也是用了多年32位的 Windows。</p>
+<h3 id="安装一些软件"><a href="#安装一些软件" class="headerlink" title="安装一些软件"></a>安装一些软件</h3><p>没了图形化界面，命令行界面必须要好看啊，zsh 和 <a href="http://ohmyz.sh/" target="_blank" rel="noopener">oh-my-zsh</a> 是必备的，这个简单，直接 <code>yum</code> 加上官方安装方式，几行命令就搞定。</p>
+<p>其次，<a href="http://hisham.hm/htop/" target="_blank" rel="noopener">htop</a>，这个漂亮的任务管理器还是平时比较喜欢使用的工具之一，因为有时候通过这个工具能够一眼看到很多进程系统信息。不过目前貌似没有 ARM 版本的二进制直接提供使用，只能尝试通过源码本地编译来安装。可能是因为没有适配的原因吧，在树莓派上使用时不时会崩溃。</p>
+<p><a href="https://github.com/xtaci/kcptun" target="_blank" rel="noopener">kcptun</a>，这个工具是我买树莓派的最初目的，虽说家里智能路由器也是各种性能不错，但是一旦上 kcptun 后，经常就会 CPU 打满，最终被系统杀掉进程。所以最初的打算就是外挂一个树莓派专门跑 kcptun，能够保证性能。最后的结果是，开了4线程来跑，树莓派的系统负荷依然很低。现在就先不细说了，过段时间可以单独说一下这个工具。</p>
+<h3 id="未来的使用计划"><a href="#未来的使用计划" class="headerlink" title="未来的使用计划"></a>未来的使用计划</h3><p>买完这家伙后，工作上就开始各种忙了，紧接着就是过年，过完年后又忙着杂七杂八的事情，一直到这段时间才有空过来看看这个被遗忘的家伙。</p>
+<p>因为单一跑个 kcptun 实在是有点浪费，本来打算搭建个服务，上几个传感器为我监控家里面的温度湿度空气质量啥的，后来发现小米的米家里面都有，还比自己买便宜，而且有个米家的 app 也省得自己搭建服务了，索性就放弃了这个想法。这段时间又看到可以利用树莓派把米家的设备桥接到 iOS 里面的 HomeKit 上，所以准备抽空把这个捣鼓下。</p>
+<p>当然了，如果性能还充足，我准备用 Rails 建个服务，跑一些自动化任务或者简单的家庭网络管理后台，这样配合 DDNS 就能在外面掌控家里的情况了，虽说 Ruby 可能会有一些性能上的问题，但是这点小的任务加上对树莓派硬件的大致了解来看，问题应该不大。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>捧个钱场</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="zesming 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zesming 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Raspberry-Pi/" rel="tag"># Raspberry Pi</a>
+          
+            <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+          
+            <a href="/tags/Raspbian/" rel="tag"># Raspbian</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Windows/" rel="tag"># Windows</a>
+          
+            <a href="/tags/arm64/" rel="tag"># arm64</a>
+          
+            <a href="/tags/armv7/" rel="tag"># armv7</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/oc-super/" rel="next" title="简谈 OC 中陌生而又熟悉的 super">
+                <i class="fa fa-chevron-left"></i> 简谈 OC 中陌生而又熟悉的 super
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/apfs/" rel="prev" title="简单谈谈 APFS">
+                简单谈谈 APFS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="zesming" />
+            
+              <p class="site-author-name" itemprop="name">zesming</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zesming" target="_blank" title="Github"><i class="fa fa-fw fa-github"></i>Github</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/zesming" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/ming9010" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sketchk.xyz/" title="SketchK" target="_blank">SketchK</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://draveness.me/index" title="Draveness" target="_blank">Draveness</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#树莓派"><span class="nav-number">1.</span> <span class="nav-text">树莓派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#购入"><span class="nav-number">2.</span> <span class="nav-text">购入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROM"><span class="nav-number">3.</span> <span class="nav-text">ROM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装系统"><span class="nav-number">4.</span> <span class="nav-text">装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看下系统信息"><span class="nav-number">5.</span> <span class="nav-text">看下系统信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装一些软件"><span class="nav-number">6.</span> <span class="nav-text">安装一些软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未来的使用计划"><span class="nav-number">7.</span> <span class="nav-text">未来的使用计划</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-at"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zesming</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">56k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">51 分钟</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
+  <!--以下3行为一条竖线和Coding Page-->
+  <span class="post-meta-divider">|</span>
+  <div class="powered-by">  
+  </div>
+  <span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'zesming',
+            repo: 'blog_comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'cb9b17eb444cfcf719110f52abc04d6b61237a4a',
+            
+                client_id: '7137e5b7394607289ffb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dCugfUtMwqzNw618FF19TehQ-gzGzoHsz", "U8aoTFLllLdnArbgTgdou2aL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

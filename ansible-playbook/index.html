@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6.2.0" color="#222">
+
+
+  <link rel="manifest" href="/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'WVM7F0H3K4',
+      apiKey: '0e5efbfc5517f5a18ec6264b12f8d67a',
+      indexName: 'personal_blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Ansible 是个什么东西呢？官方的 title 是 “Ansible is Simple IT Automation” ——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署 APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。 所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。 Ansible 基于 paramiko 开发的。这">
+<meta name="keywords" content="automation,OM,ansible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Ansible 玩转批量运维">
+<meta property="og:url" content="https://zesming.com/ansible-playbook/index.html">
+<meta property="og:site_name" content="Ming&#39;s pages">
+<meta property="og:description" content="Ansible 是个什么东西呢？官方的 title 是 “Ansible is Simple IT Automation” ——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署 APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。 所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。 Ansible 基于 paramiko 开发的。这">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-19T03:55:44.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用 Ansible 玩转批量运维">
+<meta name="twitter:description" content="Ansible 是个什么东西呢？官方的 title 是 “Ansible is Simple IT Automation” ——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署 APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。 所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。 Ansible 基于 paramiko 开发的。这">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://zesming.com/ansible-playbook/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>用 Ansible 玩转批量运维 | Ming's pages</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93519419-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-93519419-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?37766885fbfe1bac69ba3ce8527f3433";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ming's pages</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/ansible-playbook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zesming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming's pages">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用 Ansible 玩转批量运维
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-03-26 13:45:18" itemprop="dateCreated datePublished" datetime="2016-03-26T13:45:18+08:00">2016-03-26</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/macOS/" itemprop="url" rel="index"><span itemprop="name">macOS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/ansible-playbook/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/ansible-playbook/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/ansible-playbook/" class="leancloud_visitors" data-flag-title="用 Ansible 玩转批量运维">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Ansible 是个什么东西呢？官方的 title 是 “Ansible is Simple IT Automation” ——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署 APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。</p>
+<p>所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。</p>
+<p>Ansible 基于 paramiko 开发的。这个 paramiko 是什么呢？它是一个纯 Python 实现的 ssh 协议库。因此 ansible 还有一个特点就是不需要在远程主机上安装 client/agents，因为它们是基于 ssh来和远程主机通讯的。</p>
+<a id="more"></a>
+<h3 id="用-Ansible-的必要性"><a href="#用-Ansible-的必要性" class="headerlink" title="用 Ansible 的必要性"></a>用 Ansible 的必要性</h3><p>假如目前我们已经有超过 10 台的 Jenkins slave 机器，但是 slave 的环境配置却是需要统一，所以想要维护多台 slaves 就是一项需要做很多重复性机械性工作的体力活。</p>
+<p>既然 Ansible 是一个能够在多台目标机器上批量执行命令的工具，那么用它来统一维护 slaves 无疑是一个省时省力的方式。</p>
+<h3 id="怎么安装呢？"><a href="#怎么安装呢？" class="headerlink" title="怎么安装呢？"></a>怎么安装呢？</h3><p>既然它是 Python 实现的 ssh 协议库，那么就用 Python package Manager——pip 进行安装就好了，如果没有装过 pip，那就先需要安装这个</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo easy_install pip</span><br></pre></td></tr></table></figure>
+<p>安装 pip 后，我们就能安装 Ansible 了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip install ansible</span><br></pre></td></tr></table></figure>
+<p>官方还特别温馨的提示了这句话</p>
+<blockquote class="blockquote-center"><p>If you are installing on OS X Mavericks, you may encounter some noise from your compiler. A workaround is to do the following:<br>$ sudo CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip install ansible</p>
+</blockquote>
+<p>更多详细内容，可以参阅 <a href="http://docs.ansible.com/ansible/intro_installation.html" target="_blank" rel="noopener">官方文档</a></p>
+<p>如果在 OS X El Capitan 下安装 <code>pycrypto</code> 遇到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configure: error: C compiler cannot create executables</span><br></pre></td></tr></table></figure>
+<p>请参考此篇文章：<a href="http://pod.hatenablog.com/entry/2016/01/06/153144" target="_blank" rel="noopener">El Captainでmacportsでinstallしたpython3.4上でpycryptoのinstallに失敗する場合</a></p>
+<p>需要注意的一点，因为这是通过 ssh 来实现的，所使用的 remote_user 要能够 ssh 无密码登录到所有机器，so，我们可能还需要把想要操作的 slave 的机器（一般是本机）的公钥传到 slave 上，这个比较简单：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id [user@]hostname</span><br></pre></td></tr></table></figure>
+<h3 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h3><p>ansible 执行的时候会按照以下顺序查找配置项:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* ANSIBLE_CONFIG <span class="comment"># 环境变量</span></span><br><span class="line">* ansible.cfg <span class="comment"># 当前目录下</span></span><br><span class="line">* .ansible.cfg <span class="comment"># 用户家目录下</span></span><br><span class="line">* /etc/ansible/ansible.cfg</span><br></pre></td></tr></table></figure>
+<p>还有一个重要的配置是 hosts 的配置，所有的远程主机需要在 hosts 中配置，可以分组。当然 hosts 也可以执行是指定。先来一个简单的例子，目录下新建一个 hosts 文件:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hosts</span></span><br><span class="line">[slave]</span><br><span class="line">slave1.ci.ios.com ansible_ssh_user=jenkins</span><br></pre></td></tr></table></figure>
+<p>然后在终端执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible -i ./hosts all -a <span class="string">'who'</span></span><br></pre></td></tr></table></figure>
+<p>你就会得到如下的反馈</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line">slave1.ci.ios.com | success | rc=0 &gt;&gt;</span><br><span class="line">jenkins  console  Sep  6 13:10</span><br><span class="line">jenkins  ttys000  Sep  8 14:51  (你的 IP)</span><br></pre></td></tr></table></figure>
+<p>这是一条 <code>ad-hoc</code> 命令，也就是临时执行命令，<code>ad-hoc</code> 是 ansible 里的一个概念, 在上面命令中就是 <code>-a</code> ，下面会提到。命令中的 <code>all</code> 是值 <code>host</code> 中的所有服务器，当然也可以通过 <code>$ ansible -i ~/hosts slave -a &#39;who&#39;</code> 这样根据组名指定服务器。</p>
+<p>再说到 <code>ansible.cfg</code> 的配置，默认 ansible 执行时会从该配置中加载 hosts 配置，因此可以通过修改 <code>.ansible.cfg</code> 来指定默认的 hosts 文件地址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .ansible.cfg</span></span><br><span class="line">[defaults]</span><br><span class="line">hostfile=/Projects/jenkins-ansible/hosts <span class="comment"># 这就是我hosts文件的路径</span></span><br></pre></td></tr></table></figure>
+<p>然后再执行的话，就不需要-i命令了</p>
+<h3 id="ad-hoc-命令"><a href="#ad-hoc-命令" class="headerlink" title="ad-hoc 命令"></a>ad-hoc 命令</h3><p>上面你看到的就是个简单的 <code>ad-hoc</code> 命令，当你想临时执行一个小命令的时候，例如看下 slave 上的 IP ，重启一下， ping 一下 slave 是否能 pong 回来（打个乒乓），这个命令就最适合啦。</p>
+<p>那么这个 <code>ad-hoc</code> 命令怎么用呢？上面已经简单的示范了下。在 ansible 中还有一个 Module（模块）的概念，这个模块可以理解为一个库，所有的命令都需要通过模块来执行，比如上面的那个命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible -i ./hosts all -a <span class="string">'who'</span></span><br></pre></td></tr></table></figure>
+<p>其实是调用了默认的 <code>command</code> 模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible -i ./hosts all -m <span class="built_in">command</span> -a <span class="string">'who'</span></span><br></pre></td></tr></table></figure>
+<p>除了 <code>command</code> 模块还有其他很多模块，比如就像刚才我说的你就想 ping 下这个 slave 是不是还联通可以通过 <code>ping</code> 模块：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible -i ./hosts all -m ping</span><br></pre></td></tr></table></figure>
+<p>然后就会看到……</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">slave1.ci.ios.com | success &gt;&gt; &#123;</span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实还有以下几个有用的参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-u username  <span class="comment"># 指定ssh连接的用户名</span></span><br><span class="line">-f 10        <span class="comment"># 指定并发数</span></span><br><span class="line">--sudo [-K]  <span class="comment"># 如果需要root权限执行的话，-K参数是用来输入root密码的</span></span><br></pre></td></tr></table></figure>
+<p>你可以通过各种模块来批量完成某个包的安装，或者其他什么需要的操作。 更多模块可以看 <a href="http://docs.ansible.com/ansible/modules.html" target="_blank" rel="noopener">官网文档</a>。</p>
+<h3 id="一次要执行很多任务？Playbook出场！"><a href="#一次要执行很多任务？Playbook出场！" class="headerlink" title="一次要执行很多任务？Playbook出场！"></a>一次要执行很多任务？Playbook出场！</h3><p>如果你想装一个包，配置N多个环境，升级下库，拉一下代码等众多任务，那么一条一条 <code>ad-hoc</code> 命令能把你累死，怎么办？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook</span><br></pre></td></tr></table></figure>
+<p>playbook，顾名思义，就是个剧本，你写好，它们照着演。先写个简单的剧情让它们试试镜？</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.yml</span></span><br><span class="line"><span class="attr">- hosts:</span> <span class="string">slave</span></span><br><span class="line"><span class="attr">  user:</span> <span class="string">jenkins</span></span><br><span class="line"><span class="attr">  tasks:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">update</span> <span class="string">homebrew</span></span><br><span class="line"><span class="attr">      homebrew:</span> <span class="string">update_homebrew=yes</span></span><br></pre></td></tr></table></figure>
+<p>上面的剧情就是让 slave 升级下 homebrew ，剧本写的好奇怪是么？那可能是你第一次见到 <code>YAML</code> 格式的文件，啥是 <code>YAML</code> ？<a href="https://zh.wikipedia.org/wiki/YAML" target="_blank" rel="noopener">戳这里！</a></p>
+<p>简单解释下上面的 playbook ，hosts 后面根据 slave 是从 hosts 中读取的，<code>tasks</code> 是是关键词，指明了要执行哪些任务；下面的 <code>name</code> 是任务的名称，<code>homebrew</code> 是前面提到的 <code>module</code>(模块)，后面跟的是命令。（点我看下 <a href="http://docs.ansible.com/ansible/homebrew_module.html" target="_blank" rel="noopener">官方文档</a> 理解更清楚）</p>
+<p>然后，保存下，执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ansible-playbook -i ./hosts test.yml</span><br></pre></td></tr></table></figure>
+<p>哎呀，好戏开场了！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PLAY [slave] ******************************************************************</span><br><span class="line"></span><br><span class="line">GATHERING FACTS ***************************************************************</span><br><span class="line">ok: [slave1.ci.ios.com]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TASK: [allow debugging] *******************************************************</span><br><span class="line">changed: [slave1.ci.ios.com]</span><br><span class="line"></span><br><span class="line">PLAY RECAP ********************************************************************</span><br><span class="line">slave1.ci.ios.com : ok=2    changed=1    unreachable=0    failed=0</span><br></pre></td></tr></table></figure>
+<p>这就是个简单的 playbook ，结合 <code>hosts</code> 和 <code>Module</code> ，可以演绎出各种惊天动地的凄美爱情剧目（play），有关详细的 playbook的官方介绍，可以 <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank" rel="noopener">戳这里</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>捧个钱场</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="zesming 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zesming 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/automation/" rel="tag"># automation</a>
+          
+            <a href="/tags/OM/" rel="tag"># OM</a>
+          
+            <a href="/tags/ansible/" rel="tag"># ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ios-performance-tools/" rel="next" title="简单的 iOS 性能监测工具">
+                <i class="fa fa-chevron-left"></i> 简单的 iOS 性能监测工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/build-configuration/" rel="prev" title="利用 Build Configuration 来进行一些定制化的配置">
+                利用 Build Configuration 来进行一些定制化的配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="zesming" />
+            
+              <p class="site-author-name" itemprop="name">zesming</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zesming" target="_blank" title="Github"><i class="fa fa-fw fa-github"></i>Github</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/zesming" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/ming9010" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sketchk.xyz/" title="SketchK" target="_blank">SketchK</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://draveness.me/index" title="Draveness" target="_blank">Draveness</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用-Ansible-的必要性"><span class="nav-number">1.</span> <span class="nav-text">用 Ansible 的必要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么安装呢？"><span class="nav-number">2.</span> <span class="nav-text">怎么安装呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速上手"><span class="nav-number">3.</span> <span class="nav-text">快速上手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ad-hoc-命令"><span class="nav-number">4.</span> <span class="nav-text">ad-hoc 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次要执行很多任务？Playbook出场！"><span class="nav-number">5.</span> <span class="nav-text">一次要执行很多任务？Playbook出场！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-at"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zesming</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">56k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">51 分钟</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
+  <!--以下3行为一条竖线和Coding Page-->
+  <span class="post-meta-divider">|</span>
+  <div class="powered-by">  
+  </div>
+  <span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'zesming',
+            repo: 'blog_comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'cb9b17eb444cfcf719110f52abc04d6b61237a4a',
+            
+                client_id: '7137e5b7394607289ffb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dCugfUtMwqzNw618FF19TehQ-gzGzoHsz", "U8aoTFLllLdnArbgTgdou2aL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://zesming.com/3d-touch/</loc>
+    <lastmod>2018-05-19T03:56:12.551Z</lastmod>
+    <data>
+        <display>
+        <title>美团 app 之 3D Touch 初探</title>
+        <pubTime>2016-04-17T06:48:55.000Z</pubTime>
+        
+        <tag>美团</tag>
+         
+        <tag>3D Touch</tag>
+         
+        <tag>Force Touch</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/ansible-playbook/</loc>
+    <lastmod>2018-05-19T03:55:44.650Z</lastmod>
+    <data>
+        <display>
+        <title>用 Ansible 玩转批量运维</title>
+        <pubTime>2016-03-26T05:45:18.000Z</pubTime>
+        
+        <tag>automation</tag>
+         
+        <tag>OM</tag>
+         
+        <tag>ansible</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://zesming.com/categories/Linux/"/>
+          
+             
+              <breadCrumb title="macOS" url="https://zesming.com/categories/macOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/update-cocoapods/</loc>
+    <lastmod>2018-05-19T03:55:24.763Z</lastmod>
+    <data>
+        <display>
+        <title>Update CocoaPods</title>
+        <pubTime>2016-03-20T13:53:14.000Z</pubTime>
+        
+        <tag>CocoaPods</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/ios-performance-tools/</loc>
+    <lastmod>2018-05-19T03:55:05.283Z</lastmod>
+    <data>
+        <display>
+        <title>简单的 iOS 性能监测工具</title>
+        <pubTime>2016-03-26T03:46:27.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>tweak</tag>
+         
+        <tag>performance</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/home-network-setup/</loc>
+    <lastmod>2018-05-16T03:37:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>网线必须有——家用网络搭建心得</title>
+        <pubTime>2018-05-12T12:01:26.000Z</pubTime>
+        
+        <tag>家庭</tag>
+         
+        <tag>网络</tag>
+         
+        <tag>树莓派</tag>
+         
+        <tag>装修</tag>
+         
+        <tag>六类</tag>
+         
+         
+           
+             
+              <breadCrumb title="Network" url="https://zesming.com/categories/Network/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+  <url>
+    <loc>https://zesming.com/respberry-centos/</loc>
+    <lastmod>2018-05-13T11:46:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派的初探</title>
+        <pubTime>2017-03-25T06:24:01.000Z</pubTime>
+        
+        <tag>Raspberry Pi</tag>
+         
+        <tag>CentOS</tag>
+         
+        <tag>Raspbian</tag>
+         
+        <tag>Ubuntu</tag>
+         
+        <tag>Windows</tag>
+         
+        <tag>arm64</tag>
+         
+        <tag>armv7</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://zesming.com/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/resign-uiautomation/</loc>
+    <lastmod>2018-05-13T11:46:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>利用重签名实现真机自动化测试</title>
+        <pubTime>2016-07-17T03:40:00.000Z</pubTime>
+        
+        <tag>automation</tag>
+         
+        <tag>archive</tag>
+         
+        <tag>xcodebuild</tag>
+         
+        <tag>iOS</tag>
+         
+        <tag>sign</tag>
+         
+        <tag>resign</tag>
+         
+        <tag>fastlane</tag>
+         
+        <tag>ipa</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/oc-super/</loc>
+    <lastmod>2018-05-13T11:44:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>简谈 OC 中陌生而又熟悉的 super</title>
+        <pubTime>2017-03-11T08:34:16.000Z</pubTime>
+        
+        <tag>Objective-C</tag>
+         
+        <tag>super</tag>
+         
+        <tag>self</tag>
+         
+        <tag>object</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/hyperloop/</loc>
+    <lastmod>2018-05-13T11:42:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hyperloop，让发布简洁高效</title>
+        <pubTime>2017-06-05T16:34:12.000Z</pubTime>
+        
+        <tag>CI</tag>
+         
+        <tag>美团</tag>
+         
+        <tag>Hyperloop</tag>
+         
+        <tag>CD</tag>
+         
+        <tag>发布工程</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/build-configuration/</loc>
+    <lastmod>2018-05-13T11:41:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>利用 Build Configuration 来进行一些定制化的配置</title>
+        <pubTime>2016-04-17T05:19:38.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>build configuration</tag>
+         
+        <tag>archive</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/command-line-testing/</loc>
+    <lastmod>2018-05-13T11:40:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>Command-Line Testing</title>
+        <pubTime>2016-03-20T12:05:01.000Z</pubTime>
+        
+        <tag>Unit test</tag>
+         
+        <tag>Command line test</tag>
+         
+        <tag>xcodebuild</tag>
+         
+        <tag>CI</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+             
+              <breadCrumb title="macOS" url="https://zesming.com/categories/macOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://zesming.com/apfs/</loc>
+    <lastmod>2018-05-13T11:38:44.000Z</lastmod>
+    <data>
+        <display>
+        <title>简单谈谈 APFS</title>
+        <pubTime>2017-04-08T07:32:53.000Z</pubTime>
+        
+        <tag>APFS</tag>
+         
+        <tag>HFS</tag>
+         
+        <tag>SSD</tag>
+         
+        <tag>file system</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
+          
+             
+              <breadCrumb title="macOS" url="https://zesming.com/categories/macOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+</urlset>

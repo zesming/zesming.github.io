@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6.2.0" color="#222">
+
+
+  <link rel="manifest" href="/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'WVM7F0H3K4',
+      apiKey: '0e5efbfc5517f5a18ec6264b12f8d67a',
+      indexName: 'personal_blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面平时一直和 @臧成威 等小伙伴做我们美团 iOS 客户端的发布工程相关事情，感觉和 iOS 越来越没啥关系了，有一天晚上吃饭，我们几个同学讨论要不然让成威在平时抽空给我们讲述一些 iOS 中好玩的东西，我们总结下来也算是一种技术积累和提升。 于是在我们的威逼利诱下，成威答应了这个事情。 此篇文章是在听了成威某一天的分享后，我抽空稍加调研总结出来的。 熟悉的 super我们平时利用 OC 开">
+<meta name="keywords" content="Objective-C,super,self,object">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简谈 OC 中陌生而又熟悉的 super">
+<meta property="og:url" content="https://zesming.com/oc-super/index.html">
+<meta property="og:site_name" content="Ming&#39;s pages">
+<meta property="og:description" content="写在前面平时一直和 @臧成威 等小伙伴做我们美团 iOS 客户端的发布工程相关事情，感觉和 iOS 越来越没啥关系了，有一天晚上吃饭，我们几个同学讨论要不然让成威在平时抽空给我们讲述一些 iOS 中好玩的东西，我们总结下来也算是一种技术积累和提升。 于是在我们的威逼利诱下，成威答应了这个事情。 此篇文章是在听了成威某一天的分享后，我抽空稍加调研总结出来的。 熟悉的 super我们平时利用 OC 开">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://zesming.com/images/super-1.png">
+<meta property="og:image" content="https://zesming.com/images/super-2.png">
+<meta property="og:image" content="https://zesming.com/images/super-3.png">
+<meta property="og:updated_time" content="2018-05-13T11:44:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简谈 OC 中陌生而又熟悉的 super">
+<meta name="twitter:description" content="写在前面平时一直和 @臧成威 等小伙伴做我们美团 iOS 客户端的发布工程相关事情，感觉和 iOS 越来越没啥关系了，有一天晚上吃饭，我们几个同学讨论要不然让成威在平时抽空给我们讲述一些 iOS 中好玩的东西，我们总结下来也算是一种技术积累和提升。 于是在我们的威逼利诱下，成威答应了这个事情。 此篇文章是在听了成威某一天的分享后，我抽空稍加调研总结出来的。 熟悉的 super我们平时利用 OC 开">
+<meta name="twitter:image" content="https://zesming.com/images/super-1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://zesming.com/oc-super/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>简谈 OC 中陌生而又熟悉的 super | Ming's pages</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93519419-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-93519419-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?37766885fbfe1bac69ba3ce8527f3433";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ming's pages</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/oc-super/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zesming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming's pages">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简谈 OC 中陌生而又熟悉的 super
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-03-11 16:34:16" itemprop="dateCreated datePublished" datetime="2017-03-11T16:34:16+08:00">2017-03-11</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/oc-super/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/oc-super/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/oc-super/" class="leancloud_visitors" data-flag-title="简谈 OC 中陌生而又熟悉的 super">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>平时一直和 <code>@臧成威</code> 等小伙伴做我们美团 iOS 客户端的发布工程相关事情，感觉和 iOS 越来越没啥关系了，有一天晚上吃饭，我们几个同学讨论要不然让成威在平时抽空给我们讲述一些 iOS 中好玩的东西，我们总结下来也算是一种技术积累和提升。</p>
+<p>于是在我们的威逼利诱下，成威答应了这个事情。</p>
+<p>此篇文章是在听了成威某一天的分享后，我抽空稍加调研总结出来的。</p>
+<h3 id="熟悉的-super"><a href="#熟悉的-super" class="headerlink" title="熟悉的 super"></a>熟悉的 <code>super</code></h3><p>我们平时利用 OC 开发 iOS 的时候，会经常用到 <code>super</code> 这一关键字，比如我们在创建一个新的 <code>ViewController</code> 后会首先看到的：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者是我们在一个类的初始化器 (<code>initializer</code>) 里面，我们需要这样写：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">// init something</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有时候我们调用一些其他的 <code>CocoaTouch</code> 方法，也需要我们手动调用 <code>super</code> 的方法，例如：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)updateConstraints &#123;</span><br><span class="line">	<span class="comment">// do something to setup views constraints</span></span><br><span class="line">	</span><br><span class="line">	[<span class="keyword">super</span> updateConstraints];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，都是我们平时比较常见的一些带有 <code>super</code> 的用法，看起来还是比较正常的，也比较能够清楚地知道这些用法的含义。</p>
+<p>接下来我们看一个不太常见的代码。</p>
+<a id="more"></a>
+<h3 id="陌生的-super"><a href="#陌生的-super" class="headerlink" title="陌生的 super"></a>陌生的 <code>super</code></h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OCTChild</span> : <span class="title">OCTFather</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]));</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">super</span> <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>那么在 <code>OCTChild</code> 被 <code>- init</code> 的时候，它会输出什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2017-02-25 16:38:07.064 OC Test Project[4633:537030] OCTChild</span><br><span class="line">2017-02-25 16:38:07.064 OC Test Project[4633:537030] OCTChild</span><br></pre></td></tr></table></figure>
+<p>看到这里，有的同学可能就笑了，这不是个常见的 iOS 面试题么？有什么陌生的？</p>
+<p>的确，这个代码之前在我们网红 <code>孙源 @sunnyxx</code> 的博文中也出现过，当时他也简单分析了出现上述代码执行结果的原因。</p>
+<h3 id="super-到底什个什么鬼？"><a href="#super-到底什个什么鬼？" class="headerlink" title="super 到底什个什么鬼？"></a>super 到底什个什么鬼？</h3><p>官方文档中提到</p>
+<blockquote>
+<p>There’s another important keyword available to you in Objective-C, called <code>super</code>. Sending a message to <code>super</code> is a way to call through to a method implementation defined by a superclass further up the inheritance chain. The most common use of <code>super</code> is when overriding a method.</p>
+</blockquote>
+<p>用我们中国人的话来说，即为 <code>super</code> 是一个关键字，给 <code>super</code> 发消息实际上是一种调用继承链上父类实现的方法的方式，通常用于子类需要重写父类方法又想保留父类行为的时候。</p>
+<p>上面我们提到的 <code>- viewDidLoad</code> 里面的调用，实际上是想在子类初始化自己之前首先执行父类的一些初始化操作。</p>
+<p>而 <code>- init</code> 则是利用父类（甚至是祖父类）的初始化器先创建一个原始的自己，再进行定制化操作，保证 OOP 中的一些继承特性。</p>
+<p>最后的 <code>- updateConstraints</code> 我们可以理解为，在完成自己组件的 <code>autolayout</code>约束设定后，需要调用父类的更新设定以保证约束生效。</p>
+<p>这没问题，我记住了，我们就是用 <code>super</code> 来调用父类的方法嘛，看起来还是比较容易理解的。</p>
+<p>可是，上面那个打印 <code>[super class]</code> 的代码为啥看起来不想这么回事啊！？</p>
+<h3 id="这并不是我的本意！"><a href="#这并不是我的本意！" class="headerlink" title="这并不是我的本意！"></a>这并不是我的本意！</h3><p>我们再来看一个和 <code>[super class]</code> 类似的代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OCTFather</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)selfIntroduce &#123;</span><br><span class="line">    [<span class="keyword">self</span> saySomething];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)saySomething &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, <span class="string">"I am a father!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OCTChild</span> : <span class="title">OCTFather</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)selfIntroduce &#123;</span><br><span class="line">    [<span class="keyword">self</span> saySomething];</span><br><span class="line">    [<span class="keyword">super</span> selfIntroduce];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)saySomething &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, <span class="string">"I am a child!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这里我们执行一下 <code>OCTChild</code> 的实例方法 <code>- shoutOut</code></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OCTChild *child = [[OCTChild alloc] init];</span><br><span class="line">[child selfIntroduce];</span><br></pre></td></tr></table></figure>
+<p>我们来看下结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2017-02-25 17:46:22.014 OC Test Project[6099:782572] I am a child!</span><br><span class="line">2017-02-25 17:46:22.014 OC Test Project[6099:782572] I am a child!</span><br></pre></td></tr></table></figure>
+<p>按照上面我们说的 <code>super</code> 的用法，我们是不是该这样理解？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">路人甲：&quot;这位小朋友，来做个自我介绍！“</span><br><span class="line"></span><br><span class="line">小孩：”我是儿子！爸，你自己说吧！“</span><br><span class="line"></span><br><span class="line">爸：“我是儿子！”</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这当爹的傻了吧？</p>
+<p>不过我们回顾下上面 <code>[super class]</code> 的那坨代码，可以看出这两个都得出了一个反常理的结果！</p>
+<p>这并不是我的本意！</p>
+<h3 id="runtime-问题吧？"><a href="#runtime-问题吧？" class="headerlink" title="runtime 问题吧？"></a>runtime 问题吧？</h3><p>虽说上面的两个问题有些不符合常理，但是面对这样的结果，我们还是要有个突破口来找寻答案。</p>
+<p>众所周知，<code>Objective-C</code> 是一个动态语言，所谓的方法调用实际上是在运行时的一个消息发送。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">id <span class="title">objc_msgSend</span><span class="params">(id theReceiver, SEL theSelector, ...)</span></span></span><br></pre></td></tr></table></figure>
+<p>那么，<code>super</code> 的话，receiver 应该是自己的父类吧？可是这样的话，应该是个父类的实例，可是什么时候生成的实例呢？每调用一次都要生成一个实例，什么时候销毁的呢？整个生命周期是啥样的呢？</p>
+<p>感觉跑偏了，不要瞎想了，我们用 <code>clang</code> 看一下咋回事应该是比较直接的。</p>
+<p>利用 <code>clang</code> 重写的 <code>C++</code> 代码，我们找到了这样一些东西：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _I_OCTChild_selfIntroduce(OCTChild * self, SEL _cmd) &#123;</span><br><span class="line">    ((<span class="keyword">void</span> (*)(id, SEL))(<span class="keyword">void</span> *)objc_msgSend)((id)self, sel_registerName(<span class="string">"saySomething"</span>));</span><br><span class="line">    ((<span class="keyword">void</span> (*)(__rw_objc_super *, SEL))(<span class="keyword">void</span> *)objc_msgSendSuper)((__rw_objc_super)&#123;(id)self, (id)class_getSuperclass(objc_getClass(<span class="string">"OCTChild"</span>))&#125;, sel_registerName(<span class="string">"selfIntroduce"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是上面我们提到的 <code>OCTChild</code> 中的 <code>- selfIntroduce</code> 方法，方法块中第一行的 <code>[self saySomething]</code> 已经被转成了我们比较熟知的样子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((<span class="keyword">void</span> (*)(id, SEL))(<span class="keyword">void</span> *)objc_msgSend)((id)self, sel_registerName(<span class="string">"saySomething"</span>));</span><br></pre></td></tr></table></figure>
+<p>下面那句好像看起来和上面不一样。这个 <code>objc_msgSendSuper</code> 应该就是 <code>super</code> 调用方法时候真正的实现。</p>
+<p>我们不难看出，这个函数有两个参数：</p>
+<ol>
+<li><code>(__rw_objc_super){(id)self, (id)class_getSuperclass(objc_getClass(&quot;OCTChild&quot;))}</code></li>
+<li><code>sel_registerName(&quot;selfIntroduce&quot;)</code></li>
+</ol>
+<p>而第一个参数实际上是个名为 <code>objc_super</code> 的 <code>struct</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Specifies the superclass of an instance. </span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_super</span> &#123;</span></span><br><span class="line">    <span class="comment">/// Specifies an instance of a class.</span></span><br><span class="line">    __unsafe_unretained id receiver;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// Specifies the particular superclass of the instance to message. </span></span><br><span class="line">    __unsafe_unretained Class super_class;</span><br><span class="line">    <span class="comment">/* super_class is the first class to search */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>所以，大体上我们可以确定，在编译期的时候，我们的这个 <code>struct</code> 就已经确定了里面 <code>super_class</code> 的值（虽说 <code>objc_getClass()</code> 是个运行时函数，但是入参是个固定的类名哦）。</p>
+<p>回顾下 <code>self</code> 的本质，实际上是一个隐式参数，表示用来接收消息的自己类的实例对象。</p>
+<p>而 <code>super</code> 实际上则是个指令符号（就是个 flag），编译器在看到我们写的 <code>[super someMethod]</code> 的时候，会编译成刚才我们看到的 <code>objc_msgSendSuper</code>。</p>
+<p>综上所述，<code>super</code> 相关的方法调用方式实际上在编译期间就已经确定了。</p>
+<h3 id="真相只有一个！"><a href="#真相只有一个！" class="headerlink" title="真相只有一个！"></a>真相只有一个！</h3><p>原理搞清楚了，我们再回来看下刚才的问题，为啥调用父类的 <code>- selfIntroduce</code> 方法还是会喊出“我是儿子”这个话？</p>
+<p>按照刚才我们的研究步骤，我们一步一步来重现。</p>
+<p>1 一开始的 <code>child</code> 对象调用自己的实例方法 <code>- selfIntroduce</code>，实际上底层调用是这样子的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_msgSend(self, @selector(selfIntrduce))</span><br></pre></td></tr></table></figure>
+<p>2 然后执行方法实现中 <code>[self saySomething]</code> 和 <code>[super selfIntroduce]</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">objc_msgSend(self, @selector(selfIntrduce))</span><br><span class="line">objc_msgSendSuper(&#123;self, class_getSuperclass(objc_getClass(<span class="string">"OCTChild"</span>))&#125;,@selector(selfIntroduce))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：这里的 self 为我们一开始生成的 OCTChild 的实例对象 child</span><br></pre></td></tr></table></figure>
+<p>3 <code>[self saySomething]</code> 执行，打印出 <code>OCTChild</code> 中的实现 <code>I am a child!</code></p>
+<p>4 <code>[super selfIntroduce]</code> 执行，查找 <code>OCTChild</code> 父类中是否有 <code>- selfIntroduce</code> 方法，按照继承链，找到它的第一个父类 <code>OCTFather</code>，然后调用其实现，执行 <code>[self saySomething]</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objc_msgSend(self, @selector(selfIntrduce))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：这里的 self 仍为我们一开始生成的 OCTChild 的实例对象 child，它是通过 objc_msgSendSuper 里面的 objc_super 这一 struct 带过来的。</span><br></pre></td></tr></table></figure>
+<p>5 <code>[self saySomething]</code> 执行，打印出 <code>OCTChild</code> 中的实现 <code>I am a child!</code></p>
+<p>执行过程完成。</p>
+<p>为了直观一些，我们可以稍微调整下代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OCTFather</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)selfIntroduce &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@: %s"</span>, <span class="keyword">self</span>, <span class="string">"Begin to introduce myself at superclass!"</span>);</span><br><span class="line">    [<span class="keyword">self</span> saySomething];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)saySomething &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, <span class="string">"I am a father!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OCTChild</span> : <span class="title">OCTFather</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)selfIntroduce &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@: %s"</span>, <span class="keyword">self</span>, <span class="string">"Begin to introduce myself!"</span>);</span><br><span class="line">    [<span class="keyword">self</span> saySomething];</span><br><span class="line">    [<span class="keyword">super</span> selfIntroduce];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)saySomething &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, <span class="string">"I am a child!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>其实就是加了两个在自我介绍开始时的 log</p>
+<p>结果证明了上面我们的分析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2017-02-25 21:35:34.293 OC Test Project[9496:1418664] &lt;OCTChild: 0x6100000182c0&gt;: Begin to introduce myself!</span><br><span class="line">2017-02-25 21:35:34.294 OC Test Project[9496:1418664] I am a child!</span><br><span class="line">2017-02-25 21:35:34.294 OC Test Project[9496:1418664] &lt;OCTChild: 0x6100000182c0&gt;: Begin to introduce myself at superclass!</span><br><span class="line">2017-02-25 21:35:34.294 OC Test Project[9496:1418664] I am a child!</span><br></pre></td></tr></table></figure>
+<p>简单总结下我们之前的所有分析：</p>
+<ol>
+<li><code>super</code> 不同于 <code>self</code>，它不是个对象，而是个 flag</li>
+<li>用于 <code>objc_msgSendSuper</code> 的结构体 <code>objc_super</code> 是编译时确定的，里面包含了当前类的父类信息</li>
+<li><code>[super someMethod]</code> 会去利用结构体中的父类信息，从这个父类开始顺着继承链向上查找，直到找到第一个实现 <code>- someMethod</code> 这个方法的类</li>
+<li>找到方法后，利用结构体中的 receiver，也就是一开始触发这个方法调用的实例，调用这个方法实现。</li>
+</ol>
+<p>所以说，<code>[super class]</code> 经过这么一大圈的转换，实际上变成了 <code>[self class]</code> 了。</p>
+<p>而我们刚才的那个自我介绍的例子，也是这样实现方式的体现，不过由于碰巧和父类有同样的实现逻辑，并且还覆写了同样的方法，最后才有这样的奇怪结果。</p>
+<p>想象着还挺危险的，不过也可以利用这样的黑魔法去玩一些高端的实现。</p>
+<h3 id="为什么不在运行时确定？"><a href="#为什么不在运行时确定？" class="headerlink" title="为什么不在运行时确定？"></a>为什么不在运行时确定？</h3><p>既然 OC 是一个动态语言，那么为什么 <code>super</code> 不能和 <code>self</code> 一样运行时来查找所属关系呢？</p>
+<p>这个问题问得好，我们先来看下 <code>self</code> 在运行时是怎么玩的？</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="keyword">self</span>);</span><br></pre></td></tr></table></figure>
+<p>得到的答案很明确，<code>self</code> 是自己这个类的实例对象。</p>
+<p>很好，我们就按照这个思路假设 <code>super</code> 就是一个 “<code>self</code> 的父类”。</p>
+<p>那么就简单的重新回顾下我们之前的那个例子：</p>
+<p><code>self</code> 是一个 <code>OCTChild</code> 的实例对象，那么 <code>super</code> 是这个对象的父类。</p>
+<p><img src="/images/super-1.png" alt="super-1"></p>
+<p>看上去没啥问题，那么我们现在如果加一个 <code>OCTGrandFather</code> 类，使 <code>OCTFather</code> 继承这个类，那结果呢？</p>
+<p><code>self</code> 还是 <code>OCTChild</code> 的一个实例对象，只不过在 <code>OCTFather</code> 中增加一个 <code>super</code> 的方法调用，按照我们的期望，应该是会找到 <code>OCTGrandFather</code> 这个类。</p>
+<p>但实际上呢？</p>
+<p><img src="/images/super-2.png" alt="super-2"></p>
+<p>如图所示，一开始调用没啥问题，刚才我们也验证过了，但是当 <code>OCTFather</code> 调用 <code>super</code> 方法的时候，由于是运行时确定 <code>super</code> 为 “<code>self</code> 的父类”，那么它就又会回到 <code>self</code> 所表示的 <code>OCTChild</code> 的实例对象这里来，然后重新向上找父类。</p>
+<p>等于说，如果是运行时确定的，那么 <code>super</code> 仅仅只能找到 <code>self</code> 自己的父类，再往上就会回来往复循环。</p>
+<p>正是因为这个原因，所以要在编译期就确定 <code>super</code> 的从属关系而不是在运行时去做。</p>
+<p>同理，如果你想要打印一个 <code>super</code> 或者添加一个带有 <code>super</code> 方法调用的运行时方法，编译器就会立刻告诉你我不认识这个 <code>super</code>。</p>
+<p><img src="/images/super-3.png" alt="super-3"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><code>super</code> 这个东西虽说平时用的很多，并且在 Xcode 的语法高亮上和 <code>self</code> 一样，但是本质上却是和 <code>self</code> 有着天壤之别。通过各种手段去认识了解 <code>super</code>，可以尽可能的减少我们平时因为使用不当造成的奇奇怪怪的问题，也可以加深我们对这个动态语言的理解～</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>捧个钱场</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="zesming 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zesming 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/super/" rel="tag"># super</a>
+          
+            <a href="/tags/self/" rel="tag"># self</a>
+          
+            <a href="/tags/object/" rel="tag"># object</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/resign-uiautomation/" rel="next" title="利用重签名实现真机自动化测试">
+                <i class="fa fa-chevron-left"></i> 利用重签名实现真机自动化测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/respberry-centos/" rel="prev" title="树莓派的初探">
+                树莓派的初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="zesming" />
+            
+              <p class="site-author-name" itemprop="name">zesming</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zesming" target="_blank" title="Github"><i class="fa fa-fw fa-github"></i>Github</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/zesming" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/ming9010" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sketchk.xyz/" title="SketchK" target="_blank">SketchK</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://draveness.me/index" title="Draveness" target="_blank">Draveness</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#熟悉的-super"><span class="nav-number">2.</span> <span class="nav-text">熟悉的 super</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#陌生的-super"><span class="nav-number">3.</span> <span class="nav-text">陌生的 super</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-到底什个什么鬼？"><span class="nav-number">4.</span> <span class="nav-text">super 到底什个什么鬼？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这并不是我的本意！"><span class="nav-number">5.</span> <span class="nav-text">这并不是我的本意！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runtime-问题吧？"><span class="nav-number">6.</span> <span class="nav-text">runtime 问题吧？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真相只有一个！"><span class="nav-number">7.</span> <span class="nav-text">真相只有一个！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么不在运行时确定？"><span class="nav-number">8.</span> <span class="nav-text">为什么不在运行时确定？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">9.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-at"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zesming</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">56k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">51 分钟</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
+  <!--以下3行为一条竖线和Coding Page-->
+  <span class="post-meta-divider">|</span>
+  <div class="powered-by">  
+  </div>
+  <span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'zesming',
+            repo: 'blog_comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'cb9b17eb444cfcf719110f52abc04d6b61237a4a',
+            
+                client_id: '7137e5b7394607289ffb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dCugfUtMwqzNw618FF19TehQ-gzGzoHsz", "U8aoTFLllLdnArbgTgdou2aL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

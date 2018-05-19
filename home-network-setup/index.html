@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6.2.0" color="#222">
+
+
+  <link rel="manifest" href="/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'WVM7F0H3K4',
+      apiKey: '0e5efbfc5517f5a18ec6264b12f8d67a',
+      indexName: 'personal_blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="为什么要说这个从上一次更新文章到现在将近一年的时间了，在此期间，我经历了人生中的一次大事——装修，其中最让我有成就感的，除了一整套智能家居的组合，就是家庭网络的搭建了，而后者，也是家里所有互联设备日后协同工作的基础。 提及到装修，就少不了要谈论到家里弱电的设计，很多人，包括很多程序员，甚至有部分网络工程师，都会觉得把这个交给家装设计师或者电工就行了，还有朋友觉得，现在无线设备这么先进，家里一根入户">
+<meta name="keywords" content="家庭,网络,树莓派,装修,六类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网线必须有——家用网络搭建心得">
+<meta property="og:url" content="https://zesming.com/home-network-setup/index.html">
+<meta property="og:site_name" content="Ming&#39;s pages">
+<meta property="og:description" content="为什么要说这个从上一次更新文章到现在将近一年的时间了，在此期间，我经历了人生中的一次大事——装修，其中最让我有成就感的，除了一整套智能家居的组合，就是家庭网络的搭建了，而后者，也是家里所有互联设备日后协同工作的基础。 提及到装修，就少不了要谈论到家里弱电的设计，很多人，包括很多程序员，甚至有部分网络工程师，都会觉得把这个交给家装设计师或者电工就行了，还有朋友觉得，现在无线设备这么先进，家里一根入户">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/1.JPG">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/2.JPG">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/3.png">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/4.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/5.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/6.png">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/7.png">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/IMG_3238.jpg">
+<meta property="og:updated_time" content="2018-05-16T03:37:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网线必须有——家用网络搭建心得">
+<meta name="twitter:description" content="为什么要说这个从上一次更新文章到现在将近一年的时间了，在此期间，我经历了人生中的一次大事——装修，其中最让我有成就感的，除了一整套智能家居的组合，就是家庭网络的搭建了，而后者，也是家里所有互联设备日后协同工作的基础。 提及到装修，就少不了要谈论到家里弱电的设计，很多人，包括很多程序员，甚至有部分网络工程师，都会觉得把这个交给家装设计师或者电工就行了，还有朋友觉得，现在无线设备这么先进，家里一根入户">
+<meta name="twitter:image" content="http://images-13569712.mtmss.com/posts/home_network_setup/1.JPG">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://zesming.com/home-network-setup/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>网线必须有——家用网络搭建心得 | Ming's pages</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93519419-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-93519419-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?37766885fbfe1bac69ba3ce8527f3433";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ming's pages</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/home-network-setup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zesming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming's pages">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网线必须有——家用网络搭建心得
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-12 20:01:26" itemprop="dateCreated datePublished" datetime="2018-05-12T20:01:26+08:00">2018-05-12</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/home-network-setup/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/home-network-setup/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/home-network-setup/" class="leancloud_visitors" data-flag-title="网线必须有——家用网络搭建心得">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么要说这个"><a href="#为什么要说这个" class="headerlink" title="为什么要说这个"></a>为什么要说这个</h2><p>从上一次更新文章到现在将近一年的时间了，在此期间，我经历了人生中的一次大事——装修，其中最让我有成就感的，除了一整套智能家居的组合，就是家庭网络的搭建了，而后者，也是家里所有互联设备日后协同工作的基础。</p>
+<p>提及到装修，就少不了要谈论到家里弱电的设计，很多人，包括很多程序员，甚至有部分网络工程师，都会觉得把这个交给家装设计师或者电工就行了，还有朋友觉得，现在无线设备这么先进，家里一根入户线接一个无线路由器就足矣，但事实上，在日后的生活中上网的极致体验可不是一个路由器就能满足得了的。</p>
+<p>从长远考虑，我还是决定在这一块上亲自出马，除了一部分走线交给电工，其余都由我来。</p>
+<a id="more"></a>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>设计整体的网络布局，肯定要根据整个房屋格局来，先上一份家里的格局图：</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/1.JPG" alt="格局图"></p>
+<p>找了好久只找到了一张渣质量的图了，凑合看吧。从上图可以看到，我们家是个狭长了格局，如果想要房子内哪里都有无线信号，面对这么奇葩的结构，就算是企业级无线路由器肯定也是有些吃力的。</p>
+<p>再结合每个房间未来将要承载的功能和设备，大致有了以下的设计：</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/2.JPG" alt="设计图"></p>
+<p>还是那张渣质量图。主要使用网络的点位都已经在图上标出来了，而这些地方是肯定要有有线端口的。</p>
+<p>得益于 ZF 近年来的提速降费政策，帝都联通每年都会给用户的带宽翻一倍，并且最低资费的带宽已经 100M 了，去年双十一搞活动还出了几天的 1000M 资费，加上家中会有高速内网通信的需要（因为考虑要上 NAS），能达到千兆的六类线是必须的了，考虑过全屋上光纤，好处就是未来带宽升级空间大，并且光纤便宜，走线也方便不少。</p>
+<p>不过为了支持光转电，家里的很多节点设备都需要换成专用的，而在目前以电为主的时代，这样搭建麻烦不少，其实最主要的还是家没多大点地儿，整体工程上全光性价比不太高。</p>
+<h3 id="网线必须有"><a href="#网线必须有" class="headerlink" title="网线必须有"></a>网线必须有</h3><p>就像我一开始说的那样，很多朋友在新装修的时候都觉得弱电无所谓，随便走走就行了，反正现在无线路由器也这么发达了。但是作为一个不喜欢凑合的人（……上图凑合是因为真的找不到清楚的了🤦🏻‍♂️），是无法忍受无线的不稳定性。因为无线路由再怎么发达，无线信号也是会受到家里的墙，家具，管线，以及别人家的无线信号的影响的，2.4GHz 速度慢，5GHz 衰减快，总不能为了体验抱个设备蹲在 AP 旁吧？而每个房间放一个无线 AP 又不太现实，就算是麻烦点用电力猫每个屋放一个，无线信号干扰不说，能达到满速传输也不太现实，搭建和维护成本也相对较高。</p>
+<p>所以我一开始的设计原则就是，主打有线，无线辅助，毕竟手机这些移动设备和智能家居的设备还是没法接网线的。</p>
+<h3 id="网线服务节点"><a href="#网线服务节点" class="headerlink" title="网线服务节点"></a>网线服务节点</h3><p><code>① 弱电箱</code> 这个没什么办法，和电工在家里找了一圈，也就那个位置比较合适了，因为还可以被沙发挡一下，相对好看点，并且距离电视柜这个重要设备聚集地还近点。交换机本来想上16口的呢，后来一看其实也用不了那么多，就换成8口的，弱电箱尺寸也能小点。</p>
+<p><code>② 电视柜</code> 在一开始的时候就是要把这里当成家里面的影音数据中心（听着很高大上），因为回家除了在睡觉和在书房 <del>写码</del>（玩游戏），就是在客厅活动了。加上家里小，没有专用的书房，我是肯定不能放 NAS 这样噪声狂魔，所以把这些东西放客厅是最佳选择，主路由放这里也能满足活动区的无线需要。</p>
+<p><code>③ 书桌</code> 这里必须要有有线端口，并且两个设备都要配置，为啥？当玩网游稳定不丢包，下载传输数据打满千兆的时候，就知道稳定的网络环境是一个多么爽的事情。搬进来后还发现，这里被各种承重墙外墙包成了一个 WiFi 死角，真是庆幸当时拉了网线过来。</p>
+<p><code>④ 主卧电视柜</code> 这里用一个之前撸的免费的斐讯 K3 连接网线当无线 AP，看结构图里面一堵一堵承重墙就能明白为啥不用无线中继了。它主要负责俩卧室的无线信号和主卧未来可能会有的电视，结果使用的时候发现这家伙属于信号强盗，但凡是连接上它的信号，就算是蹲在客厅 AC88U 这样一个企业路由的旁边，使用的信号仍然是它发出来的，不过基本不可用，没什么速度。后来上网搜索了下发现是这家伙的 <a href="https://zh.wikipedia.org/wiki/%E6%B3%A2%E6%9D%9F%E8%B5%8B%E5%BD%A2" target="_blank" rel="noopener">Beamforming</a> 的功能造成的，因为 K3 使用的是 Intel 的芯片，貌似在这个功能上是有 bug 的（Intel 在无线通信这块和 Broadcom 差的真不是一点半点）。在关了这个功能后，K3 就可以乖乖的只服务自己辖区内的设备了。</p>
+<h3 id="网络拓扑图"><a href="#网络拓扑图" class="headerlink" title="网络拓扑图"></a>网络拓扑图</h3><p>先上图：</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/3.png" alt="网络拓扑图"></p>
+<h3 id="客厅"><a href="#客厅" class="headerlink" title="客厅"></a>客厅</h3><p>首先，我把光猫改成桥接模式，通过路由器来拨号，这样做的目的是可以让路由器成为一级网络节点，从而直接拥有公网 IP，进行端口转发，远程访问等操作。所以，光猫从<code>① 弱电箱</code>里面把光转电后，走线到<code>② 电视柜</code>，然后连接主路由的 WAN，进行上网拨号，同时联通还送了我一个 IPTV 机顶盒（现在基本上都不会放在机顶了吧），而北京联通的 IPTV 是走的单独的协议，所以还必须从<code>① 弱电箱</code>中光猫特定的 LAN 口接出来一根线，走到<code>② 电视柜</code>，连接机顶盒，通过机顶盒来拨号看电视。</p>
+<p>提到 IPTV 需要单独线路的事情，其实可以偷懒使用单线复用方案，也就是和主路由共用从光猫分出来的那根线，然后通过 VLAN 各种绑定，使机顶盒可以通过路由器来连接拨号看电视，具体的一些资料可以搜索下 <a href="http://koolshare.cn/portal.php" target="_blank" rel="noopener">KoolShare</a> 上的帖子来了解。</p>
+<p>除了上述的链路连接，因为家里面其余房间的网线需要通过交换机交换，但交换机我是选择放在弱电箱里的，所以从<code>② 电视柜</code>到<code>① 弱电箱</code>还有一条线路，连接主路由 LAN 口和交换机，用于转接内网线路。</p>
+<p>剩下的移动设备，智能设备都通过无线路由器的 WiFi 连接。</p>
+<h3 id="主卧"><a href="#主卧" class="headerlink" title="主卧"></a>主卧</h3><p>主要就是一个无线路由器改造成的无线 AP，用于拓展距离客厅最远的主卧无线信号。定制家具的时候专门设计了一个能放得下 K3 的电视柜（K3 是竖着放的）。</p>
+<h3 id="次卧"><a href="#次卧" class="headerlink" title="次卧"></a>次卧</h3><p>两个电脑都使用网线上网，MBP 设置网线为首选上网方式，WiFi 打开用于 Handoff 和 AirDrop 等操作，得亏 MBP 的无线网卡还算是不挑信号，在这个 WiFi 死角也勉强能连得上主卧 AP 的 5GHz，用于上述功能已经够了。</p>
+<h2 id="设备购买和安装"><a href="#设备购买和安装" class="headerlink" title="设备购买和安装"></a>设备购买和安装</h2><p>上述设计完成后，保险起见，我咨询了一个当网络工程师的哥们，一是 Review 一下我的设计（Design Review 🙄），二来呢，让他给我后期的设备购买和安装出一些专业性的指导和建议。</p>
+<h3 id="设备购买"><a href="#设备购买" class="headerlink" title="设备购买"></a>设备购买</h3><h4 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h4><p>华硕 AC88U，17年年初买的，华硕中比较不错的无线路由器了，配合 Merlin 固件能干好多事情，所以它就当主路由吧，主要负责拨号，DDNS，端口转发，梯子和部分服务。</p>
+<p>斐讯 K3，免费撸的斐讯最高端的路由器，但是固件一直被批评功能欠佳，拓展性不好，有后门，刷个第三方的吧，又没有人家 Merlin 做得好，索性就别纠结了，安心当个 AP 算了。</p>
+<h4 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h4><p>在 JD 上买的六类非屏蔽100米的整箱，这是在电工开完槽，走完线管后告诉我的长度，质量我觉得一些大牌子的都差不多，所以就看哪个顺眼随手挑的。</p>
+<p>从墙上网线端口到设备之间的跳线，我选用的是成品六类，原因是六类跳线手工打造基本上很难合格，水晶头那块是个坎儿，成品跳线便宜质量还有保证，既省事又好看，何乐而不为呢？</p>
+<h4 id="面板"><a href="#面板" class="headerlink" title="面板"></a>面板</h4><p>因为家里其他地方的面板是西门子的，所以这个我也直接选的<a href="https://item.jd.com/228640.html" target="_blank" rel="noopener">西门子</a>家的。西门子家的面板中是都含有六类模块的，但是我还是买了一堆单独的<a href="https://item.jd.com/5056217.html" target="_blank" rel="noopener">六类模块</a>，原因下面安装的时候我会提到。</p>
+<h4 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h4><p>网工哥们给的购买建议是 <a href="https://item.jd.com/3660988.html" target="_blank" rel="noopener">TP-LINK</a> 的8口千兆交换机，尺寸也小，不占地儿，主要是便宜。</p>
+<h4 id="联通赠送的光猫和机顶盒"><a href="#联通赠送的光猫和机顶盒" class="headerlink" title="联通赠送的光猫和机顶盒"></a>联通赠送的光猫和机顶盒</h4><h3 id="设备安装"><a href="#设备安装" class="headerlink" title="设备安装"></a>设备安装</h3><p>走线都交给了电工师傅们，接头面板这块，我选择自己来，因为就连师傅自己都承认，六类线他们搞不好。</p>
+<p>这块可以简单介绍下，不同于百兆线，千兆线需要网线中四对八根线，也就是所有线用于通信，如果有一根没有连通，那么就会被网卡等设备降级识别为 100M 的，所以为了跑满千兆，安装这一块要求非常高。</p>
+<p>在没有意识到这个问题之前，我还买了几个水晶头用于弱电箱里面的网线接头，结果在一顿忙活后，仍没有一根是能正确识别为千兆的，当然了，如果手法老道，一些高端网工是可以手工打制合格的六类水晶头的。后来了解到这个问题后，把弱电箱内所有的接头都换成模块，配合成品跳线连接光猫和交换机。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/4.jpg" alt=""></p>
+<p>这就是模块安装图，其实这个和面板里面那个是一样的，所以基本上卡好之后能保证八根线是都能连通的。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/5.jpg" alt=""></p>
+<p>然后配合成品跳线，完美达成千兆速率。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>用 macOS 的 Network Utility 测试下看看。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/6.png" alt=""></p>
+<p>继而用 Speedtest 跑下速度（500M 的资费套餐）。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/7.png" alt=""></p>
+<p>当然了，实际应用场景中，基本上是达不到这个下行峰值的，因为很多服务器就没有这么高的输出速率。</p>
+<p>现在还没有采购 NAS，未来到位后，尝试用内网链路聚合看看能有什么效果。</p>
+<p>大体来说，家里的网络还是比较符合我的预期，通过端口转发在外面控制家里的设备，访问搭建在树莓派上的一些服务，虽说受到 20M 的上行速率限制，但是也已经满足预期了。</p>
+<p>路由器刷上 Merlin 固件后，覆盖全家的梯子，以及通过树莓派暴露给在外搭梯子时候使用的 KCPTUN 服务，日后再结合 NAS，基本上常用的操作都能满足了。</p>
+<p>最后上一张我的<code>③ 书桌</code>的摆拍图：</p>
+<p><img src="http://images-13569712.mtmss.com/posts/home_network_setup/IMG_3238.jpg" alt=""></p>
+<p>如果仔细看，还能看到下面的网线端口🙃。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>捧个钱场</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="zesming 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zesming 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/家庭/" rel="tag"># 家庭</a>
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
+          
+            <a href="/tags/装修/" rel="tag"># 装修</a>
+          
+            <a href="/tags/六类/" rel="tag"># 六类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hyperloop/" rel="next" title="Hyperloop，让发布简洁高效">
+                <i class="fa fa-chevron-left"></i> Hyperloop，让发布简洁高效
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="zesming" />
+            
+              <p class="site-author-name" itemprop="name">zesming</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zesming" target="_blank" title="Github"><i class="fa fa-fw fa-github"></i>Github</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/zesming" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/ming9010" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sketchk.xyz/" title="SketchK" target="_blank">SketchK</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://draveness.me/index" title="Draveness" target="_blank">Draveness</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要说这个"><span class="nav-number">1.</span> <span class="nav-text">为什么要说这个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计"><span class="nav-number">2.</span> <span class="nav-text">设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网线必须有"><span class="nav-number">2.1.</span> <span class="nav-text">网线必须有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网线服务节点"><span class="nav-number">2.2.</span> <span class="nav-text">网线服务节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络拓扑图"><span class="nav-number">2.3.</span> <span class="nav-text">网络拓扑图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客厅"><span class="nav-number">2.4.</span> <span class="nav-text">客厅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主卧"><span class="nav-number">2.5.</span> <span class="nav-text">主卧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#次卧"><span class="nav-number">2.6.</span> <span class="nav-text">次卧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备购买和安装"><span class="nav-number">3.</span> <span class="nav-text">设备购买和安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设备购买"><span class="nav-number">3.1.</span> <span class="nav-text">设备购买</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路由器"><span class="nav-number">3.1.1.</span> <span class="nav-text">路由器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网线"><span class="nav-number">3.1.2.</span> <span class="nav-text">网线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面板"><span class="nav-number">3.1.3.</span> <span class="nav-text">面板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交换机"><span class="nav-number">3.1.4.</span> <span class="nav-text">交换机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联通赠送的光猫和机顶盒"><span class="nav-number">3.1.5.</span> <span class="nav-text">联通赠送的光猫和机顶盒</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备安装"><span class="nav-number">3.2.</span> <span class="nav-text">设备安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-at"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zesming</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">56k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">51 分钟</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
+  <!--以下3行为一条竖线和Coding Page-->
+  <span class="post-meta-divider">|</span>
+  <div class="powered-by">  
+  </div>
+  <span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'zesming',
+            repo: 'blog_comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'cb9b17eb444cfcf719110f52abc04d6b61237a4a',
+            
+                client_id: '7137e5b7394607289ffb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dCugfUtMwqzNw618FF19TehQ-gzGzoHsz", "U8aoTFLllLdnArbgTgdou2aL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6.2.0" color="#222">
+
+
+  <link rel="manifest" href="/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/browserconfig.xml" />
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'WVM7F0H3K4',
+      apiKey: '0e5efbfc5517f5a18ec6264b12f8d67a',
+      indexName: 'personal_blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="何为 APFS？2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学">
+<meta name="keywords" content="APFS,HFS,SSD,file system">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单谈谈 APFS">
+<meta property="og:url" content="https://zesming.com/apfs/index.html">
+<meta property="og:site_name" content="Ming&#39;s pages">
+<meta property="og:description" content="何为 APFS？2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://zesming.com/images/Clone_figure1_2x.png">
+<meta property="og:image" content="https://zesming.com/images/Clone_figure2_2x.png">
+<meta property="og:image" content="https://zesming.com/images/Snapshot_figure1_2x.png">
+<meta property="og:image" content="https://zesming.com/images/Snapshot_figure2_2x.png">
+<meta property="og:image" content="https://zesming.com/images/space_sharing.png">
+<meta property="og:updated_time" content="2018-05-13T11:38:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单谈谈 APFS">
+<meta name="twitter:description" content="何为 APFS？2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学">
+<meta name="twitter:image" content="https://zesming.com/images/Clone_figure1_2x.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://zesming.com/apfs/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>简单谈谈 APFS | Ming's pages</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93519419-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-93519419-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?37766885fbfe1bac69ba3ce8527f3433";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ming's pages</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/apfs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zesming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming's pages">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单谈谈 APFS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-04-08 15:32:53" itemprop="dateCreated datePublished" datetime="2017-04-08T15:32:53+08:00">2017-04-08</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/macOS/" itemprop="url" rel="index"><span itemprop="name">macOS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/apfs/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/apfs/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/apfs/" class="leancloud_visitors" data-flag-title="简单谈谈 APFS">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="何为-APFS？"><a href="#何为-APFS？" class="headerlink" title="何为 APFS？"></a>何为 APFS？</h3><p>2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学都不知道他们自己搞了一套），后来又有了 HFS+。</p>
+<p>不过按照苹果的习惯，一旦一个技术为了适应苹果的产品而被改来改去，杂乱无章的时候，就意味着在不久的将来肯定会有个全新的技术来替代它，例如早些年用 clang 替换掉了 GCC，现在正在用 Swift 替换 Objective-C。</p>
+<p>在 iOS 10.3 发布之前，我完全没有仔细地去了解过这个玩意儿，直到 iOS 10.3 beta 版出来后，大家惊呼 APFS 现身带来了更多的可用空间，我才意识到这个技术可能又是一个苹果新造的轮子。</p>
+<p>果不其然，在和 HFS 抗争多年后，苹果终于发现这垃圾玩意已经没有改的价值了，所以另起炉灶，重新搞一套。传闻 APFS 项目中负责人为了保证不受其它已有文件系统的影响，不去看任何一个文件系统的实现原理和机制，从零开始，针对苹果现有的设备形态，打造的一个全新的文件系统。</p>
+<p>在苹果官网 APFS 的介绍页，介绍了它的一些主要特性：</p>
+<blockquote>
+<p>Apple File System is a 64-bit file system supporting over 9 quintillion files on a single volume. This state-of-the-art file system features cloning for files and directories, snapshots, space sharing, fast directory sizing, atomic safe-save primitives, and improved filesystem fundamentals, as well as a unique copy-on-write design that uses I/O coalescing to deliver maximum performance while ensuring data reliability.</p>
+</blockquote>
+<p>简单来说，主要还是从效率和安全性方面做了很多改进。</p>
+<a id="more"></a>
+<h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><h4 id="Clones"><a href="#Clones" class="headerlink" title="Clones"></a>Clones</h4><p>通俗点来讲，就是平时我们拷贝文件。按照我们传统思维来讲，拷贝一个文件到另一个地方还需要在磁盘上占用相同空间，并且视文件大小还会有相应的拷贝时间（例如拷一个 1GB 左右的大姐姐影视作品到别的地方，可能就需要另外占用 1GB 空间，并且还需要差不多 1s 左右的拷贝时间）。</p>
+<p>但是在 APFS 下，一个 clone 操作基本上是瞬间完成，不管大小，并且也不会额外占用磁盘空间。</p>
+<p>那它是咋做的呢？其实有点像是我们平时写代码时用的浅拷贝，仅仅是创建了个副本指针，指向了相同的一块区域。</p>
+<p><img src="/images/Clone_figure1_2x.png" alt="clone-1"></p>
+<p>可是问题来了，我们都知道，在浅拷贝操作后，如果内容发生了变更，那么所有指向这块内存的变量都会跟着改变，而在文件系统中如果这么做，那和链接有什么区别？我们希望的就是保留变更啊。好吧，你们要不同，APFS 就仅仅保留了不同。</p>
+<p><img src="/images/Clone_figure2_2x.png" alt="clone-2"></p>
+<p>听起来有点和 Git 的一些做法类似啊。</p>
+<h4 id="Snapshots"><a href="#Snapshots" class="headerlink" title="Snapshots"></a>Snapshots</h4><p>快照通常情况下是一种用于备份的方式，操作系统同时可以使用快照快速还原到某一个时间点。有别于传统的备份，快照不管是从时间还是从空间占用都不大。</p>
+<p>APFS 的快照也类似，不过从介绍来看，和传统的快照类似，只记录 diff，所以说创建了多个快照也不会特别大。</p>
+<p><img src="/images/Snapshot_figure1_2x.png" alt="snapshot-1"></p>
+<p>得益于 clone 的思路，创建快照也是一个简单的“指针”创建和引用，由于速度快，创建快照可以在不打断用户操作的前提下对数据进行备份</p>
+<p><img src="/images/Snapshot_figure2_2x.png" alt="snapshot-2"></p>
+<p>不过不巧的是，由于 APFS 不支持硬链接，还不支持现阶段的 Time Machine，所以为啥只有 iOS 现在用上了 APFS 而 macOS 还没有（其实想用也是可以用的，只不过限制多多，想必苹果可能也没有做好软件层面的适配），想必有一部分是这个原因。</p>
+<h4 id="Space-Sharing"><a href="#Space-Sharing" class="headerlink" title="Space Sharing"></a>Space Sharing</h4><p>这个技术就有点厉害了，回想下我们在用 Windows 的时候，如果不加控制或者在一开始给系统盘分配的空间不多的话，会在使用一段时间后收到系统警告，告诉你系统盘空间不足。</p>
+<p>通常面对这样的情况，我们可能会尝试删一些文件或者软件啊，高端点的玩家可能还会调整下磁盘分区，再高端点的玩家可能直接就选择重装系统了。完后为了防止再出现这样的问题，可能就会不再系统盘装软件放文件之类的，但是这样来说可能有会产生其他奇奇怪怪不是特别好的问题，总之非常头疼。</p>
+<p>虽说用 Mac 后就没有再分过区，但是 Space Sharing 这项技术解决的就是上述问题。</p>
+<p>Space Sharing 允许多个文件系统在物理卷上共享相同的底层可用空间。与为每个文件系统预先分配固定数量的空间的刚性分区方案不同，APFS格式的卷大小可以在不重新分区的情况下增长和缩小。</p>
+<p>APFS 容器中的每个卷都会给操作系统报告相同的可用磁盘空间，这相当于容器的总可用磁盘空间。例如，对于分区A（已用 10GB）和分区B（已用 20GB）的容量为 100GB 的 APFS 容器，显示的 分区A 和 B 的可用空间均为 70GB（100GB - 10GB - 20GB）。</p>
+<p><img src="/images/space_sharing.png" alt="space_sharing-1"></p>
+<h4 id="Encryption"><a href="#Encryption" class="headerlink" title="Encryption"></a>Encryption</h4><p>苹果在安全方面一向比较严格，想想 FBI 为了给一个 iPhone 5c 磁盘解密从而拿到里面的数据，威逼利诱苹果帮忙，结果苹果却以除了用户谁都解不开为由拒绝，尽管到后来还是被解开了，但是从历年来有关苹果设备出现的安全问题的情况来看，因为设备和技术原因的基本没有。</p>
+<p>而随着 macOS 上 FileVault 的出现，全盘加密几乎成了 macOS 的标配。想想几年前还在用 Windows 的时候，换了块硬盘，拿着老硬盘放到移动硬盘盒里就能当移动硬盘使用继续读取原来的数据，虽说 Windows 也有全盘加密的技术，但是从用户体验的角度来讲，苹果无疑是让你在不知不觉中就被保护了起来，这倒让我想起了一句话：真正的科技是让你感受不到它的存在。</p>
+<p>APFS 里面，安全是它的设计基础，而针对不同的设备，APFS 加密方式也不尽相同。APFS 为容器中的每个卷提供了以下三种加密模型：</p>
+<ul>
+<li>无加密</li>
+<li>单键加密</li>
+<li>多键加密</li>
+</ul>
+<p>其中多键加密最为安全（这不废话么），官网介绍说，哪怕在你的设备物理安全受到威胁并且获取到访问权限，也不能解开 APFS 保护下的磁盘数据。其实上面这句话我没怎么理解，但是猜测可能是类似 macOS 的登录密码被破解了，但是磁盘数据仍然不会被解密，具体的还是日后再研究吧。</p>
+<p>得益于它加密功能的实现，我们以后想要删除数据就没必要反复覆盖磁盘数据了，直接删除掉密钥就 OK 啦，相较于前者，简单快速。</p>
+<h4 id="Crash-Protection-amp-Atomic-Safe-Save"><a href="#Crash-Protection-amp-Atomic-Safe-Save" class="headerlink" title="Crash Protection &amp; Atomic Safe-Save"></a>Crash Protection &amp; Atomic Safe-Save</h4><p>作为文件系统，最重要的就是要保证数据的安全，而在我们平时日常使用过程中，难免会遇到一些突发情况，导致数据错误甚至丢失，所以文件系统作为操作系统和磁盘中间管理数据的系统，强大的数据安全保护性是一个很重要的功能。</p>
+<p>APFS 利用 copy-on-write 这项技术，可以在数据真正完成更新后再写入，期间如果发生了异常中断，诸如 Crash，那么也不会影响原有数据。而这种原子性操作，对于用户而言，只有两种状态——完全更新和啥都没变，没有了中间状态就会减少出现异常情况的可能性。</p>
+<p>从正常的使用来看，我们操作过程中可能出现的问题，APFS 已经做了保护，并且有别于其它文件系统的数据一致性复杂校验，APFS 原子性操作从某种程度上是提高了效率。</p>
+<p>不过提到数据校验，我从一些文章中发现，苹果的校验机制挺有意思，只会校验元数据，而用户数据则不管，WWDC 上 APFS 工程师说到，之所以这么做，是因为元数据相较于用户数据更重要，但是校验成本低，并且所有苹果设备中都有 ECC 纠错保护，加上 NAND 的冗余数据检验纠错，已经足够了。其实最有意思的是，苹果工程师对自己的设备很有信心，认为他们的设备通常不会遇到数据错误，设备本身误码率已经相当低了。</p>
+<p>至于这种信心从何而来我不得而知，不过从专门用于数据存储阵列的 ZFS 文件系统都可能会出现数据错误，并且它们的硬件可是上百万美元级别的，那么相较于 iPhone 和 Mac 中的 TLC 芯片，如何保证数据不出错？</p>
+<h4 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h4><p>性能可能是 APFS 另一个重要特性，正是因为苹果认为 HFS 不能够适用于 SSD，才重新开发 APFS 并着重优化 SSD 的存储。</p>
+<p>SSD 和 HDD 在本质上有着很大的差别，除了 SSD 不需要寻道以外，它的存储方式也是不一样的，例如为了保证 SSD 整体的寿命，闪存主控会把写入的数据均匀分散在各个块中，因为 SSD 内的闪存的寿命是由写入次数决定的。而和上层，也就是文件系统层的交互，则是通过一个类似于虚拟内存一样的，被称作 FTL 的东西负责处理的，它会在块地址和真正存储位置中间建立个映射关系。</p>
+<p>除此之外，SSD 有别于 HDD 还有个点，就是空间回收，HDD 通常的做法就是，这块数据不要了，我就标记为这块是空闲空间，以后用到的话再覆盖掉就好了，没必要删，所以说如果我们想要恢复数据，是一件挺容易的事情。而 SSD 则没办法这样做，因为在 SSD 中，只有空数据块才可以直接执行写入操作，而非空的要先擦除掉才能写入。</p>
+<p>这样看来，SSD 和 HDD 的区别仅仅是多了一步擦除操作而已，但实际上并非如此。在 SSD 中，数据存储的最小单位是页（page），一个页的大小一般是 4KB，若干个页面又被组合成块（block），一个块的大小一般是 512KB。由于硬件方面的限制，SSD 单独对某个页面进行读写的操作，但擦除操作却只能对整个块进行，也就是说，一旦擦除就必须一次性擦除整个块。想想看，如果操作系统要让 SSD 改写某个页面的数据，SSD 需要执行怎样的操作呢：</p>
+<ol>
+<li>将要改写的目标页面所在的整个块的数据读取到缓存。</li>
+<li>在缓存中修改目标页面的数据。</li>
+<li>对整个块执行擦除操作。</li>
+<li>将缓存中的数据重新写入整个块中。</li>
+</ol>
+<p>一个简单的 4KB 操作可能就需要把整个 512KB 的块都操作一遍，虽说 SSD 读写速度快，但这样无谓的折腾也是挺影响效率的。也正是因为这样的原因，SSD 的主控中通常会提供一个 TRIM 的命令，操作系统在删除文件时可以向主控发送 TRIM 命令告诉它哪些数据不需要了，主控拿到命令后不着急删除，而是定期 GC 一下。</p>
+<p>不同类型的主控所提供的 TRIM 也不太一样，APFS 虽说也支持了 TRIM，并且做出了一些改进，但是按照苹果的风格，应该还是先支持自家产品使用的 SSD。</p>
+<p>另外，APFS 也通过 I/O QoS（服务质量）对不同的数据操作请求分优先级，将用户可以立刻感知到的操作优先级提高，后台任务就可以放放。听起来和 iOS 里面的 UI 操作类似，这种高用户体验的小设计苹果也是玩的很转啊。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当然还有例如稀疏文件支持，快速目录大小调整等特性，但是也存在着我看来不是特别靠谱的地方，就像上面我们提到的数据校验那一块，看起来有些想当然。不过针对现阶段硬件进行的软件层面的优化，肯定会比 HFS 这种杂乱老旧并且臃肿的文件系统要好的吧。毕竟在这个世界上，能够和苹果比软硬件结合开发，应该也没谁了吧。</p>
+<p>从 iOS 10.3 可以显而易见的看出优势，哪怕只是多了几个G的可用空间，也是棒棒哒！（不过你们难道没发现通过 iOS OTA 升级无损切换文件系统其实也是一件很厉害的事么？不过从刚才我们分析 copy-on-write 这项技术来看，应该也不会有啥问题。）</p>
+<p>虽说 macOS 目前还是不能从 GUI 上找到什么 APFS 的痕迹，但是可以通过一些命令行方式创建一个 APFS 卷（分区）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdiutil create -fs APFS -size 1GB foo.sparseimage</span><br></pre></td></tr></table></figure>
+<p>不过要注意的是，现在的 macOS 的 Time Mechine 并不兼容 APFS，FileVault 也是不兼容的，最主要的是，目前正式版本 macOS 10.12.4 是不支持 APFS 的分区当作启动分区的。</p>
+<p>所以简单来说，体验一下 APFS 没啥问题，想日常使用，就算了，等 macOS 什么时候兼容 APFS，应该会是有很大程度的用户体验提升吧。</p>
+<p>虽说苹果直接扔掉了 HFS 开发了 APFS，但是我感觉当前版本的 APFS 应该不会成为一个主流的文件系统，首先一点就是苹果还没有开源，至于到底开不开源不得而知。另外这种针对 SSD 专门开发的文件系统，是否对于 HDD 有支持，我们也不清楚。处于自家生态链的考虑，抛弃掉32位设备的支持，也会让它在一段时间内只会出现在苹果的设备上。</p>
+<p>存在一些遗憾也在所难免，不过作为用户能够更好地体验苹果产品也是挺爽的。</p>
+<p>附：<a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/APFS_Guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40016999-CH1-DontLinkElementID_18" target="_blank" rel="noopener">Apple File System Guide</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>捧个钱场</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="zesming 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="zesming 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/APFS/" rel="tag"># APFS</a>
+          
+            <a href="/tags/HFS/" rel="tag"># HFS</a>
+          
+            <a href="/tags/SSD/" rel="tag"># SSD</a>
+          
+            <a href="/tags/file-system/" rel="tag"># file system</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/respberry-centos/" rel="next" title="树莓派的初探">
+                <i class="fa fa-chevron-left"></i> 树莓派的初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/hyperloop/" rel="prev" title="Hyperloop，让发布简洁高效">
+                Hyperloop，让发布简洁高效 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="zesming" />
+            
+              <p class="site-author-name" itemprop="name">zesming</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zesming" target="_blank" title="Github"><i class="fa fa-fw fa-github"></i>Github</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://twitter.com/zesming" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/ming9010" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sketchk.xyz/" title="SketchK" target="_blank">SketchK</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://draveness.me/index" title="Draveness" target="_blank">Draveness</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为-APFS？"><span class="nav-number">1.</span> <span class="nav-text">何为 APFS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要特性"><span class="nav-number">2.</span> <span class="nav-text">主要特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Clones"><span class="nav-number">2.1.</span> <span class="nav-text">Clones</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Snapshots"><span class="nav-number">2.2.</span> <span class="nav-text">Snapshots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Space-Sharing"><span class="nav-number">2.3.</span> <span class="nav-text">Space Sharing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Encryption"><span class="nav-number">2.4.</span> <span class="nav-text">Encryption</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Crash-Protection-amp-Atomic-Safe-Save"><span class="nav-number">2.5.</span> <span class="nav-text">Crash Protection &amp; Atomic Safe-Save</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Performance"><span class="nav-number">2.6.</span> <span class="nav-text">Performance</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-at"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zesming</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">56k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">51 分钟</span>
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
+  <!--以下3行为一条竖线和Coding Page-->
+  <span class="post-meta-divider">|</span>
+  <div class="powered-by">  
+  </div>
+  <span>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname,
+            owner: 'zesming',
+            repo: 'blog_comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'cb9b17eb444cfcf719110f52abc04d6b61237a4a',
+            
+                client_id: '7137e5b7394607289ffb'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+    
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+
+  
+  
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dCugfUtMwqzNw618FF19TehQ-gzGzoHsz", "U8aoTFLllLdnArbgTgdou2aL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
