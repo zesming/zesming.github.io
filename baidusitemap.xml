@@ -4,6 +4,34 @@
 
     
   <url>
+    <loc>https://zesming.com/home-network-setup/</loc>
+    <lastmod>2018-05-19T10:37:55.688Z</lastmod>
+    <data>
+        <display>
+        <title>网线必须有——家用网络搭建心得</title>
+        <pubTime>2018-05-12T12:01:26.000Z</pubTime>
+        
+        <tag>家庭</tag>
+         
+        <tag>网络</tag>
+         
+        <tag>树莓派</tag>
+         
+        <tag>装修</tag>
+         
+        <tag>六类</tag>
+         
+         
+           
+             
+              <breadCrumb title="Network" url="https://zesming.com/categories/Network/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://zesming.com/3d-touch/</loc>
     <lastmod>2018-05-19T03:56:12.551Z</lastmod>
     <data>
@@ -92,34 +120,6 @@
            
              
               <breadCrumb title="iOS" url="https://zesming.com/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://zesming.com/home-network-setup/</loc>
-    <lastmod>2018-05-16T03:37:04.000Z</lastmod>
-    <data>
-        <display>
-        <title>网线必须有——家用网络搭建心得</title>
-        <pubTime>2018-05-12T12:01:26.000Z</pubTime>
-        
-        <tag>家庭</tag>
-         
-        <tag>网络</tag>
-         
-        <tag>树莓派</tag>
-         
-        <tag>装修</tag>
-         
-        <tag>六类</tag>
-         
-         
-           
-             
-              <breadCrumb title="Network" url="https://zesming.com/categories/Network/"/>
           
         </display>
     </data>
