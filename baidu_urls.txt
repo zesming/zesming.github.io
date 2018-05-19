@@ -1,1 +1,12 @@
 https://zesming.com/home-network-setup/
+https://zesming.com/hyperloop/
+https://zesming.com/apfs/
+https://zesming.com/respberry-centos/
+https://zesming.com/oc-super/
+https://zesming.com/resign-uiautomation/
+https://zesming.com/3d-touch/
+https://zesming.com/build-configuration/
+https://zesming.com/ansible-playbook/
+https://zesming.com/ios-performance-tools/
+https://zesming.com/update-cocoapods/
+https://zesming.com/command-line-testing/
