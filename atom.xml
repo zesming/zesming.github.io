@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zesming.com/"/>
-  <updated>2018-05-19T10:37:55.688Z</updated>
+  <updated>2019-02-24T04:26:13.087Z</updated>
   <id>https://zesming.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>了解一下 Mesh 网络</title>
+    <link href="https://zesming.com/learn-mesh/"/>
+    <id>https://zesming.com/learn-mesh/</id>
+    <published>2019-02-23T09:20:22.000Z</published>
+    <updated>2019-02-24T04:26:13.087Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一切还要从上一篇文章说起"><a href="#一切还要从上一篇文章说起" class="headerlink" title="一切还要从上一篇文章说起"></a>一切还要从上一篇文章说起</h2><p>在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（<del>懒</del>）一直拖到了现在。</p><p>那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。</p><a id="more"></a><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_1.jpg" alt="1"></p><p>还别说，这一块之前真的没有怎么了解过，Google 一番后发现这个其实就是<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%8A%B6%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">网状网络</a>，有着悠久的历史，并且应该是在某本教科书上还出现过它的身影。</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_2.jpg" alt="2"></p><p>其中 <code>(e)网状拓扑结构</code> 应该说的就是它。</p><p>然后我竟无意间发现，家中的主路由器——华硕 AC88u，竟然支持 Mesh 的网络搭建，华硕官方称之为 <a href="https://www.asus.com/microsite/AiMesh/en/index.html" target="_blank" rel="noopener">AiMesh</a>。既然这东西就在身边，那我就顺藤摸瓜看看这究竟是个什么高科技。</p><h2 id="先了解下-Mesh-是什么"><a href="#先了解下-Mesh-是什么" class="headerlink" title="先了解下 Mesh 是什么"></a>先了解下 Mesh 是什么</h2><p>定义直接从维基百科上抠出来吧。</p><blockquote><p><strong>网状网络</strong>（<a href="https://zh.wikipedia.org/wiki/%E8%8B%B1%E6%96%87" target="_blank" rel="noopener">英文</a>：Mesh Network）是一种在<a href="https://zh.wikipedia.org/w/index.php?title=%E7%B6%B2%E8%B7%AF%E7%AF%80%E9%BB%9E&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">网络节点</a>间透过动态<a href="https://zh.wikipedia.org/wiki/%E8%B7%AF%E7%94%B1" target="_blank" rel="noopener">路由</a>的方式来进行资料与控制指令的传送。这种网络可以保持每个节点间的连线完整，当网络拓扑中有某节点失效或无法服务时，这种架构允许使用“跳跃”的方式形成新的路由后将讯息送达传输目的地。</p></blockquote><p>简单点来说，就是一种拓扑结构，而现在常见的无线 Mesh 具有<strong>高性价比</strong>（因为节点间可以通过无线互连，减少了对有线的依赖），<strong>可拓展性强</strong>（添加设备简单配置即可），<strong>部署快捷</strong>（同样是因为无线互连，比较方便），<strong>应用场景广</strong>（除了常见的人员密集场所，甚至可以用到轨道交通中），和<strong>高可靠性</strong>（Mesh 中各 AP 之间是全连接，有一个挂掉了可以自动连接到别的 AP）的优点。</p><p>下图是一个比较简单的 Mesh 网络。</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_3.jpg" alt="3"></p><p>这个网络中有多个 Mesh AP，负责接入服务还有 Mesh 服务，中间还有个负责 Mesh AP 和 AC 之间通信的 Mesh Portal Point，如果 Mesh AP 多的话，可能还需要加一个负责补充 Mesh AP 的 Mesh Point，它只负责和 Mesh AP 之间通信，不直接和客户端通信。</p><h3 id="自我修复"><a href="#自我修复" class="headerlink" title="自我修复"></a>自我修复</h3><p>上述提到的众多优点中，高可靠性是 Mesh 网络中比较重要的一个特性。</p><p>我们现在常见的网络拓扑结构中，大多数在出现单点故障时，都会影响网络的稳定性，例如树状拓扑结构：</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_4.jpg" alt="4"></p><p>上图中左侧的路由器故障使得下游的 AP 断连，从而导致客户端设备无法正常访问网络了。那么同样的问题对于 Mesh 网络是怎么处理的呢？我们还拿上面的 Mesh 网络拓扑图来展示：</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_5.jpg" alt="5"></p><p>我们假设中间的 MPP 设备出现了故障，那么这个网络依然能够保持可用性。其实，如果在显示网络环境中，出现了比图示更严重的故障，导致后方的设备也掉线了，那么基于 Mesh Wi-Fi的自我修复，则可预防网络环境瘫痪的情境发生。其实就是运用 Mesh Wi-Fi 网状网络中每个接入点都能相互联机、沟通的特性。当网络中的某个节点故障时，Mesh Wi-Fi网络会绕过故障节点，让功能正常的节点相互连结、运作，并且同时自动寻找封包传输时的最佳路径，保持网络内的联机沟通都能正常运作。</p><h3 id="无线漫游"><a href="#无线漫游" class="headerlink" title="无线漫游"></a>无线漫游</h3><p>Mesh 网络有了自我修复的特性，能够保证网络的高可靠性，除此之外，我其实更关心的是它的无线漫游特性。</p><p>上篇博文我提到了我家因为有个非常长的走廊，导致需要两个无线路由器才可以勉强覆盖到生活和休息区。两个无线 AP 就会导致设备如果从一个屋子移动到另一个屋的时候，会有一次信号源的切换，然后就会断一下网，通常浏览网页，聊天等不需要一直保持连接的操作，不会有特别大的感受，但是当在屋子里边走边语音，视频，玩游戏的时候，就会感受特别明显，肯定要断线重连。</p><p><img src="https://images-13569712.mtmss.com/posts/home_network_setup/2.JPG" alt="6"></p><p>这就很不爽啊，那么无线漫游正好能解决这样的问题。</p><p>所谓无线漫游，是指设备信号从一个 AP 切换到另一个 AP 的时候所需的时间控制在毫秒级，且能通过 AC 保证无需重连。</p><p>一般在设备切换信号源之前，通过 802.11k – Neighbor Report 标准，收集邻近的 AP 信息列表，然后信号弱的时候可以自动挑选 AP 切换过去，同时还需要通过 802.11v – Wireless network management 标准，保证挑选到的 AP 是信号良好的，另外，在切换之前，设备也会利用 802.11r – Fast Transition Roaming 标准，使用一种名为“快速基本服务设置转换 (FT)”的功能更快地进行鉴定。FT 适用于预共享密钥 (PSK) 和 802.1X 鉴定方法。利用上述三个标准，可以保证在进行信号切换的时候，基本无痛无感。</p><p>苹果大大有一篇 <a href="https://support.apple.com/zh-cn/HT202628" target="_blank" rel="noopener">《在 iOS 上通过 802.11k、802.11r 和 802.11v 实现 Wi-Fi 网络漫游》</a>，详细介绍了 iOS 设备在这三个标准下的工作原理，感兴趣的同学可以看看。</p><h2 id="Mesh-改造"><a href="#Mesh-改造" class="headerlink" title="Mesh 改造"></a>Mesh 改造</h2><p>因为 Mesh 属于一个网络结构，并不是一个标准，所以想要组建 Mesh 网络还需要一整套同一厂商的设备，例如家用的华硕的 AiMesh，Linksys 的 Mesh 路由，以及各种大厂提供的一整套商用解决方案。</p><p>拿我们家的网络情况来举例子，下图是原来的网络拓扑图</p><p><img src="https://images-13569712.mtmss.com/posts/home_network_setup/3.png" alt="7"></p><p>还有我们家原来的路由器摆放位置</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_8.jpg" alt="8"></p><p>因为次卧的设备接入的是有线，并没有设立 AP，所以从客厅到主卧的途中会有那么一点是“客厅不爱，主卧不管”的位置。而这个位置，正好是在次卧的飘窗附近，这里又正好是我的书桌。</p><p>房屋的结构肯定没法动了，AP 的位置也不可能有大的变化，因为弱电强电的接口已经留好了，那么我就需要在次卧加个 AP。</p><p>三个 AP 要是没有漫游那就可有的受了，既然主路由支持 AiMesh，那就全都换成华硕的路由器不就行了。于是我把次卧的斐讯 K3 换成了华硕 AC86u，负责主卧和阳台的无线覆盖，次卧新购一台华硕的 Blue Cave，不大，放在桌面上也挺好看，负责次卧书桌（因为靠近窗户，楼下以及路对面的公交车站也有无线信号）的无线覆盖。</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_8.jpg" alt="9"></p><p>接下来就是调整 AP 的接入了，基于 Mesh 的网络拓扑图就成了如下图所示</p><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_10.jpg" alt="10"></p><p>AC88u 作为主路由，接入外网，然后通过交换机和两个副路由进行 LAN to WAN 的有线连接，通过 AiMesh 实现有线回程，同时，这仨之间还可以通过 WiFi 实现无线回程，当有线出现问题的时候可以切换到无线保证稳定，尽管家用网络中这种情况基本不太可能发生。</p><p>因为华硕的 Mesh 是支持有线回程的，对于双频路由器来说，有线比无线更加稳定可靠，因为无线需要有一个频段一直保持通讯，通常优先 5Ghz，虽说带宽方面基本够用，但在极端数据传输的情况下，仍然会有影响。</p><p>具体的效果因为没有专门进行数据分析，就不贴了，实际感受就是抱着 iPad 满屋跑和老爹老妈打着 FaceTime 也没有掉线，并且没有出现过信号不佳的情况了。</p><h2 id="Mesh-更广泛的作用"><a href="#Mesh-更广泛的作用" class="headerlink" title="Mesh 更广泛的作用"></a>Mesh 更广泛的作用</h2><p>从上面提到的特性来看，Mesh 非常适合在覆盖面积大，网络质量要求高的环境下使用，那么常见的学校，医院等人口密集场所，甚至是港口，轨道交通等需要高可靠性网络的地方，都可以使用。</p><p>例如 H3C 所提供的地铁无线 Mesh 部署方案</p><blockquote><p>地铁是现代城市里不可缺少的交通工具。在一个地铁系统里，控制信息和多媒体信息需要实时的传递给快速移动的列车，从而有效的控制列车的运行，并且为乘客提供多种网络服务。</p><p>如下图所示，一个地铁无线 Mesh 网络里，车载 MP 和轨旁 MP 均采用 Fit MP，受 AC 集中管理，多个轨道 MP 沿轨道进行部署。车载 MP 不停扫描新的轨旁 MP，并选择信号质量最好的两个轨旁 MP 与之建立 Mesh 连接，主 Mesh 连接用于车载 MP 与轨旁有线网络之间的数据传输，从连接用于 Mesh 连接的切换备份。</p></blockquote><p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_11.png" alt="11"></p><p>还例如美军已经使用无线网状网络去连接在战场上的军用电脑，这可以让军队知道每一个军人的位置，这样就可以加强军队协同行动的能力。</p><p>那么在城市建设中，安装可以接入 Mesh 网络的电子水表或电表，利用这些水表或电表可以一个接着一个传送他们的读数到水电公司，如此就不需要额外抄表人员或是另外安装电缆线传送数据。</p><p>利用 Mesh 这种强大的拓展性，还可以脑洞更多应用场景，随着无线设备的功能提升，给用户带来的体验性上的提升也会越来越高。</p><h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>可能有人会说，搞这么多路由器或者专门买一套网络设备组建 Mesh 真的有必要么？</p><p>一个好的技术，或者说产品，是应该让你不用再去为之而操心，正所谓“真正的科技是让你感受不到科技的存在”，那么从这一点来讲，一些小的投入所带来的体验上的巨大提升就是值得的。</p><p>不过对于这些技术的选型其实都是因人而异的，那么从我家里的情况来看，目前这个还是挺适合我的，挑选一个适合自己的解决方案也是很重要的。</p><p>接下来的，直接干就完了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一切还要从上一篇文章说起&quot;&gt;&lt;a href=&quot;#一切还要从上一篇文章说起&quot; class=&quot;headerlink&quot; title=&quot;一切还要从上一篇文章说起&quot;&gt;&lt;/a&gt;一切还要从上一篇文章说起&lt;/h2&gt;&lt;p&gt;在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（&lt;del&gt;懒&lt;/del&gt;）一直拖到了现在。&lt;/p&gt;
+&lt;p&gt;那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Network" scheme="https://zesming.com/categories/Network/"/>
+    
+    
+      <category term="家庭" scheme="https://zesming.com/tags/%E5%AE%B6%E5%BA%AD/"/>
+    
+      <category term="网络" scheme="https://zesming.com/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="无线漫游" scheme="https://zesming.com/tags/%E6%97%A0%E7%BA%BF%E6%BC%AB%E6%B8%B8/"/>
+    
+  </entry>
   
   <entry>
     <title>网线必须有——家用网络搭建心得</title>

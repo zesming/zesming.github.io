@@ -5,15 +5,21 @@
 
 
 
+
+
+
+
+
+
   
 
 
 <html class="theme-next mist use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -24,14 +30,7 @@
 
 
 
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo" />
+  <meta name="google-site-verification" content="fh561_ent7TQTcf3es7zUOlzxkd7KEbd1l2MHmQuIuo"/>
 
 
 
@@ -49,44 +48,39 @@
 
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0"/>
 
 
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7.0.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=7.0.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6.2.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=7.0.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6.2.0">
-
-
-  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6.2.0" color="#222">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=7.0.0" color="#222">
 
 
   <link rel="manifest" href="/site.webmanifest">
 
 
-  <meta name="msapplication-config" content="/browserconfig.xml" />
+  <meta name="msapplication-config" content="/browserconfig.xml"/>
 
 
 
 
 
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    version: '6.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false,"dimmer":false},
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -118,7 +112,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Ming's pages" type="application/atom+xml"/>
 
 
 
@@ -127,7 +121,7 @@
 
 
 
-<script type="text/javascript" id="page.configurations">
+<script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
   };
@@ -139,18 +133,20 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-93519419-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="//www.googletagmanager.com/gtag/js?id=[object Object]"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-93519419-1');
+    }
+  </script>
 
-  gtag('config', 'UA-93519419-1');
-</script>
 
 
-
-  <script type="text/javascript">
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -163,30 +159,31 @@
 
 
 
+
+
+
   <noscript>
-  <style type="text/css">
-    .use-motion .motion-element,
-    .use-motion .brand,
-    .use-motion .menu-item,
-    .sidebar-inner,
-    .use-motion .post-block,
-    .use-motion .pagination,
-    .use-motion .comments,
-    .use-motion .post-header,
-    .use-motion .post-body,
-    .use-motion .collection-title { opacity: initial; }
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
 
-    .use-motion .logo,
-    .use-motion .site-title,
-    .use-motion .site-subtitle {
-      opacity: initial;
-      top: initial;
-    }
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-    .use-motion {
-      .logo-line-before i { left: initial; }
-      .logo-line-after i { right: initial; }
-    }
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
   </style>
 </noscript>
 
@@ -205,7 +202,7 @@
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -215,9 +212,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
+    
+    
   </div>
 
   <div class="site-nav-toggle">
@@ -231,7 +227,6 @@
 
 
 
-
 <nav class="site-nav">
   
     <ul id="menu" class="menu">
@@ -241,32 +236,68 @@
         
           
           <li class="menu-item menu-item-home menu-item-active">
-    <a href="/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
   </li>
         
         
         
           
           <li class="menu-item menu-item-archives">
-    <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
   </li>
         
         
         
           
           <li class="menu-item menu-item-categories">
-    <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
   </li>
         
         
         
           
           <li class="menu-item menu-item-tags">
-    <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
   </li>
 
       
@@ -276,7 +307,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -352,16 +383,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/home-network-setup/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/learn-mesh/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -371,9 +402,211 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/home-network-setup/" itemprop="url">
-                  网线必须有——家用网络搭建心得
-                </a>
+                
+                <a href="/learn-mesh/" class="post-title-link" itemprop="url">了解一下 Mesh 网络</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-23 17:20:22" itemprop="dateCreated datePublished" datetime="2019-02-23T17:20:22+08:00">2019-02-23</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/learn-mesh/" class="leancloud_visitors" data-flag-title="了解一下 Mesh 网络">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一切还要从上一篇文章说起"><a href="#一切还要从上一篇文章说起" class="headerlink" title="一切还要从上一篇文章说起"></a>一切还要从上一篇文章说起</h2><p>在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（<del>懒</del>）一直拖到了现在。</p>
+<p>那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/learn-mesh/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/home-network-setup/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming's pages"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/home-network-setup/" class="post-title-link" itemprop="url">网线必须有——家用网络搭建心得</a>
               
             
           </h1>
@@ -405,7 +638,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -426,20 +659,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/home-network-setup/" class="leancloud_visitors" data-flag-title="网线必须有——家用网络搭建心得">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/home-network-setup/" class="leancloud_visitors" data-flag-title="网线必须有——家用网络搭建心得">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -494,11 +728,13 @@
 <p>提及到装修，就少不了要谈论到家里弱电的设计，很多人，包括很多程序员，甚至有部分网络工程师，都会觉得把这个交给家装设计师或者电工就行了，还有朋友觉得，现在无线设备这么先进，家里一根入户线接一个无线路由器就足矣，但事实上，在日后的生活中上网的极致体验可不是一个路由器就能满足得了的。</p>
 <p>从长远考虑，我还是决定在这一块上亲自出马，除了一部分走线交给电工，其余都由我来。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/home-network-setup/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/home-network-setup/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -512,6 +748,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -551,16 +790,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/hyperloop/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/hyperloop/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -570,9 +809,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/hyperloop/" itemprop="url">
-                  Hyperloop，让发布简洁高效
-                </a>
+                
+                <a href="/hyperloop/" class="post-title-link" itemprop="url">Hyperloop，让发布简洁高效</a>
               
             
           </h1>
@@ -604,7 +842,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -625,20 +863,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/hyperloop/" class="leancloud_visitors" data-flag-title="Hyperloop，让发布简洁高效">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/hyperloop/" class="leancloud_visitors" data-flag-title="Hyperloop，让发布简洁高效">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -692,11 +931,13 @@
           <h3 id="Hyperloop-是什么？"><a href="#Hyperloop-是什么？" class="headerlink" title="Hyperloop 是什么？"></a>Hyperloop 是什么？</h3><p>Hyperloop 是服务于美团点评客户端的组件发版、持续集成、App 打包构建、资源调度等各个环节的发布调度系统。名称起源于美国 Elon Musk 构想的 <a href="https://hyperloop-one.com/" target="_blank" rel="noopener">Hyperloop 超级高铁</a>，象征着现代、简洁、高效。</p>
 <p>Hyperloop 提供了一站式的平台，管理着美团点评 iOS 业务的超过 300 个组件和包括美团 iOS 客户端在内的4个App。接入 Hyperloop 系统后，开发同学可以通过 Hyperloop 来管理自己的项目，配置发版和打包所需要的步骤和检查项。开发完成时，用户只需要登录 Hyperloop 进行相关操作，Hyperloop 就会根据项目的配置去调用不同的步骤，上报每个步骤的状态，给出错误日志、状态通知等。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/hyperloop/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/hyperloop/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -710,6 +951,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -749,16 +993,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/apfs/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/apfs/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -768,9 +1012,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/apfs/" itemprop="url">
-                  简单谈谈 APFS
-                </a>
+                
+                <a href="/apfs/" class="post-title-link" itemprop="url">简单谈谈 APFS</a>
               
             
           </h1>
@@ -802,7 +1045,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -830,20 +1073,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/apfs/" class="leancloud_visitors" data-flag-title="简单谈谈 APFS">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/apfs/" class="leancloud_visitors" data-flag-title="简单谈谈 APFS">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -904,11 +1148,13 @@
 </blockquote>
 <p>简单来说，主要还是从效率和安全性方面做了很多改进。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/apfs/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/apfs/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -922,6 +1168,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -961,16 +1210,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/respberry-centos/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/respberry-centos/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -980,9 +1229,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/respberry-centos/" itemprop="url">
-                  树莓派的初探
-                </a>
+                
+                <a href="/respberry-centos/" class="post-title-link" itemprop="url">树莓派的初探</a>
               
             
           </h1>
@@ -1014,7 +1262,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -1035,20 +1283,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/respberry-centos/" class="leancloud_visitors" data-flag-title="树莓派的初探">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/respberry-centos/" class="leancloud_visitors" data-flag-title="树莓派的初探">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1102,11 +1351,13 @@
           <h3 id="树莓派"><a href="#树莓派" class="headerlink" title="树莓派"></a>树莓派</h3><p>树莓派（Raspberry Pi），是一款基于 Linux 的单板机电脑。它由英国的树莓派基金会所开发，目的是以低价硬件及自由软件促进学校的基本计算机科学教育。</p>
 <p>它使用的是基于 ARM 架构的博通芯片，和现在大多数智能路由器选用的硬件大体相当，不过最新款的树莓派3 Model B 则使用了 ARM 64 位的处理器，性能上已经能够超越路由器好多了。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/respberry-centos/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/respberry-centos/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -1120,6 +1371,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -1159,16 +1413,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/oc-super/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/oc-super/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -1178,9 +1432,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/oc-super/" itemprop="url">
-                  简谈 OC 中陌生而又熟悉的 super
-                </a>
+                
+                <a href="/oc-super/" class="post-title-link" itemprop="url">简谈 OC 中陌生而又熟悉的 super</a>
               
             
           </h1>
@@ -1212,7 +1465,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -1233,20 +1486,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/oc-super/" class="leancloud_visitors" data-flag-title="简谈 OC 中陌生而又熟悉的 super">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/oc-super/" class="leancloud_visitors" data-flag-title="简谈 OC 中陌生而又熟悉的 super">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1309,11 +1563,13 @@
 <p>以上，都是我们平时比较常见的一些带有 <code>super</code> 的用法，看起来还是比较正常的，也比较能够清楚地知道这些用法的含义。</p>
 <p>接下来我们看一个不太常见的代码。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/oc-super/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/oc-super/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -1327,6 +1583,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -1366,16 +1625,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/resign-uiautomation/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/resign-uiautomation/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -1385,9 +1644,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/resign-uiautomation/" itemprop="url">
-                  利用重签名实现真机自动化测试
-                </a>
+                
+                <a href="/resign-uiautomation/" class="post-title-link" itemprop="url">利用重签名实现真机自动化测试</a>
               
             
           </h1>
@@ -1419,7 +1677,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -1440,20 +1698,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/resign-uiautomation/" class="leancloud_visitors" data-flag-title="利用重签名实现真机自动化测试">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/resign-uiautomation/" class="leancloud_visitors" data-flag-title="利用重签名实现真机自动化测试">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1506,11 +1765,13 @@
         
           <p>不少 app 可能都有自动化测试的需求，尤其是规模起来后，大批量自动化测试可以减少很多机械化的人工测试成本，也能及时的查出一些比较关键的问题，可是基于 Xcode 的模拟器独占的特性，利用 Mac 集群测试不是一个比较合适的方案，另外通过 Debug 打出的包也不一定是和线上相一致的，所以利用 Release 包 + 多台 iOS 设备进行的自动化测试相对比较靠谱。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/resign-uiautomation/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/resign-uiautomation/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -1524,6 +1785,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -1563,16 +1827,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/3d-touch/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/3d-touch/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -1582,9 +1846,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/3d-touch/" itemprop="url">
-                  美团 app 之 3D Touch 初探
-                </a>
+                
+                <a href="/3d-touch/" class="post-title-link" itemprop="url">美团 app 之 3D Touch 初探</a>
               
             
           </h1>
@@ -1616,7 +1879,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -1637,20 +1900,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/3d-touch/" class="leancloud_visitors" data-flag-title="美团 app 之 3D Touch 初探">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/3d-touch/" class="leancloud_visitors" data-flag-title="美团 app 之 3D Touch 初探">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1703,11 +1967,13 @@
         
           <h3 id="3D-Touch"><a href="#3D-Touch" class="headerlink" title="3D Touch"></a>3D Touch</h3><p>在现在的 Multi-Touch 技术下，我们见的最多的就是点，滑和缩放操作，这些操作都是在二维的维度下。而 3D Touch 则是可以给操作提供了一个新的维度——可以感受用户按压的力度。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/3d-touch/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/3d-touch/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -1721,6 +1987,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -1760,16 +2029,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/build-configuration/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/build-configuration/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -1779,9 +2048,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/build-configuration/" itemprop="url">
-                  利用 Build Configuration 来进行一些定制化的配置
-                </a>
+                
+                <a href="/build-configuration/" class="post-title-link" itemprop="url">利用 Build Configuration 来进行一些定制化的配置</a>
               
             
           </h1>
@@ -1813,7 +2081,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -1834,20 +2102,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/build-configuration/" class="leancloud_visitors" data-flag-title="利用 Build Configuration 来进行一些定制化的配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/build-configuration/" class="leancloud_visitors" data-flag-title="利用 Build Configuration 来进行一些定制化的配置">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -1901,11 +2170,13 @@
           <p>一般来说，大厂的 App 有两个证书进行签名打包，除了 App Store 上架用的，还有个用于内部测试，用的是企业证书。为了和正式包加以区分，与之相对应就会有两种不同的 App IDs 。通常来说，可能直接点的手法就是在打包之前手动更新 <code>Info.plist</code> 文件里的 <code>Bundle Identifier</code> 。</p>
 <p>这样的做法可行，但是由于需要在打包的 Job 中进行更改，会有很多修改语句，如果 app 是一个有很多 target 的庞大工程，那么在打包脚本中就会出现这样的现象：</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/build-configuration/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/build-configuration/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
           <!--/noindex-->
         
       
@@ -1919,6 +2190,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -1958,16 +2232,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/ansible-playbook/">
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/ansible-playbook/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zesming"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
+      <meta itemprop="name" content="Ming's pages"/>
     </span>
 
     
@@ -1977,9 +2251,8 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/ansible-playbook/" itemprop="url">
-                  用 Ansible 玩转批量运维
-                </a>
+                
+                <a href="/ansible-playbook/" class="post-title-link" itemprop="url">用 Ansible 玩转批量运维</a>
               
             
           </h1>
@@ -2011,7 +2284,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -2039,20 +2312,21 @@
 
           
             
+            
           
 
           
           
-             <span id="/ansible-playbook/" class="leancloud_visitors" data-flag-title="用 Ansible 玩转批量运维">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/ansible-playbook/" class="leancloud_visitors" data-flag-title="用 Ansible 玩转批量运维">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -2107,209 +2381,13 @@
 <p>所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。</p>
 <p>Ansible 基于 paramiko 开发的。这个 paramiko 是什么呢？它是一个纯 Python 实现的 ssh 协议库。因此 ansible 还有一个特点就是不需要在远程主机上安装 client/agents，因为它们是基于 ssh来和远程主机通讯的。</p>
           <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/ansible-playbook/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/ios-performance-tools/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zesming">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming's pages">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/ios-performance-tools/" itemprop="url">
-                  简单的 iOS 性能监测工具
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-03-26 11:46:27" itemprop="dateCreated datePublished" datetime="2016-03-26T11:46:27+08:00">2016-03-26</time>
-            
-
-            
-          </span>
-
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/ios-performance-tools/" class="leancloud_visitors" data-flag-title="简单的 iOS 性能监测工具">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">5.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">5 分钟</span>
-              
+            <div class="post-button text-center">
+              <a class="btn" href="/ansible-playbook/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
             </div>
           
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>由于现在iOS这一块缺少性能测试，导致 app 性能优化方面工作并没有明确的工作目标。所以需要个必要的测试工具来数据化 app 的性能状况。</p>
-<p>需要一个工具可以检测 app 的内存占用，CPU使用情况，FPS还有启动时间（可以通过 <code>UIAutomation</code> 来实现）<br>由于需要检测生产环境下各种友商 app，用于对比性能，所以决定用越狱后tweak来实现性能的检测。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/ios-performance-tools/#更多" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
           <!--/noindex-->
         
       
@@ -2323,6 +2401,9 @@
 
     
 
+    
+      
+    
     
 
     
@@ -2372,20 +2453,19 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.jpg"
-                alt="zesming" />
+                alt="zesming"/>
             
               <p class="site-author-name" itemprop="name">zesming</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -2398,7 +2478,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2520,7 +2600,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">44</span>
+                      
+                    
+                    <span class="site-state-item-count">45</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2541,24 +2623,41 @@
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/zesming" target="_blank" title="Github"><i class="fa fa-fw fa-github"></i>Github</a>
                   
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zesming" title="Github &rarr; https://github.com/zesming" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>Github</a>
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://twitter.com/zesming" target="_blank" title="Twitter"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
                   
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/zesming" title="Twitter &rarr; https://twitter.com/zesming" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://weibo.com/ming9010" target="_blank" title="微博"><i class="fa fa-fw fa-weibo"></i>微博</a>
                   
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/ming9010" title="微博 &rarr; https://weibo.com/ming9010" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>微博</a>
                 </span>
               
             </div>
           
 
-          
           
 
           
@@ -2571,11 +2670,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://sketchk.xyz/" title="SketchK" target="_blank">SketchK</a>
+                    <a href="http://sketchk.xyz/" title="http://sketchk.xyz/" rel="noopener" target="_blank">SketchK</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://draveness.me/index" title="Draveness" target="_blank">Draveness</a>
+                    <a href="https://draveness.me/index" title="https://draveness.me/index" rel="noopener" target="_blank">Draveness</a>
                   </li>
                 
               </ul>
@@ -2588,7 +2687,7 @@
           
 
         </div>
-      </section>
+      </div>
 
       
 
@@ -2596,6 +2695,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -2604,7 +2704,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2014 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2014 – <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-at"></i>
   </span>
@@ -2616,7 +2716,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">56k</span>
+    <span title="站点总字数">59k</span>
   
 
   
@@ -2625,14 +2725,12 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">51 分钟</span>
+    <span title="站点阅读时长">54 分钟</span>
   
 </div>
 
 
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -2640,7 +2738,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a></div>
   <!--以下3行为一条竖线和Coding Page-->
   <span class="post-meta-divider">|</span>
   <div class="powered-by">  
@@ -2674,11 +2772,14 @@
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -2710,49 +2811,39 @@
 
 
   
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+  <script src="/js/src/utils.js?v=7.0.0"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+  <script src="/js/src/motion.js?v=7.0.0"></script>
 
 
 
   
   
 
-  
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
 
   
 
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
-
-
-
   
 
 
-
-	
-
-
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
 
 
 
@@ -2760,39 +2851,7 @@
 
 
 
-
-
   
-
-
-
-
-
-
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
-
-
-
-
-
-
-  
-
 
 
 
@@ -2801,7 +2860,7 @@
   
     
   
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css"/>
 
   
   
@@ -2810,28 +2869,24 @@
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
   
 
-  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+  <script src="/js/src/algolia-search.js?v=7.0.0"></script>
 
 
 
   
-
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("dCugfUtMwqzNw618FF19TehQ-gzGzoHsz", "U8aoTFLllLdnArbgTgdou2aL");</script>
   <script>
+    
     function showTime(Counter) {
-      var query = new AV.Query(Counter);
       var entries = [];
-      var $visitors = $(".leancloud_visitors");
+      var $visitors = $('.leancloud_visitors');
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
+      $visitors.each(function() {
+        entries.push( $(this).attr('id').trim() );
       });
 
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { '$in': entries } }) })
+        .done(function({ results }) {
           var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
 
           if (results.length === 0) {
@@ -2841,72 +2896,48 @@
 
           for (var i = 0; i < results.length; i++) {
             var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
+            var url = item.url;
+            var time = item.time;
             var element = document.getElementById(url);
 
             $(element).find(COUNT_CONTAINER_REF).text(time);
           }
-          for(var i = 0; i < entries.length; i++) {
+          for (var i = 0; i < entries.length; i++) {
             var url = entries[i];
             var element = document.getElementById(url);
             var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
+            if (countSpan.text() == '') {
               countSpan.text(0);
             }
           }
         })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
         });
     }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            
-            counter.save(null, {
-              success: function(counter) {
-                
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
-            
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
+    
 
     $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'dCugfUtMwqzNw618FF19TehQ-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'dCugfUtMwqzNw618FF19TehQ-gzGzoHsz',
+                'X-LC-Key': 'U8aoTFLllLdnArbgTgdou2aL',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            if ($('.post-title-link').length >= 1) {
+              showTime(Counter);
+            }
+          
+        });
     });
   </script>
 
@@ -2915,25 +2946,25 @@
   
 
   
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
   
 
   
+
   
 
   

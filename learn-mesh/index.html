@@ -102,24 +102,30 @@
 
 
 
-  <meta name="description" content="何为 APFS？2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学">
-<meta name="keywords" content="APFS,HFS,SSD,file system">
+  <meta name="description" content="一切还要从上一篇文章说起在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（懒）一直拖到了现在。 那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。">
+<meta name="keywords" content="家庭,网络,无线漫游">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简单谈谈 APFS">
-<meta property="og:url" content="https://zesming.com/apfs/index.html">
+<meta property="og:title" content="了解一下 Mesh 网络">
+<meta property="og:url" content="https://zesming.com/learn-mesh/index.html">
 <meta property="og:site_name" content="Ming&#39;s pages">
-<meta property="og:description" content="何为 APFS？2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学">
+<meta property="og:description" content="一切还要从上一篇文章说起在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（懒）一直拖到了现在。 那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://zesming.com/images/Clone_figure1_2x.png">
-<meta property="og:image" content="https://zesming.com/images/Clone_figure2_2x.png">
-<meta property="og:image" content="https://zesming.com/images/Snapshot_figure1_2x.png">
-<meta property="og:image" content="https://zesming.com/images/Snapshot_figure2_2x.png">
-<meta property="og:image" content="https://zesming.com/images/space_sharing.png">
-<meta property="og:updated_time" content="2018-05-13T11:38:44.000Z">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_1.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_2.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_3.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_4.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_5.jpg">
+<meta property="og:image" content="https://images-13569712.mtmss.com/posts/home_network_setup/2.JPG">
+<meta property="og:image" content="https://images-13569712.mtmss.com/posts/home_network_setup/3.png">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_8.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_8.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_10.jpg">
+<meta property="og:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_11.png">
+<meta property="og:updated_time" content="2019-02-24T04:26:13.087Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简单谈谈 APFS">
-<meta name="twitter:description" content="何为 APFS？2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学">
-<meta name="twitter:image" content="https://zesming.com/images/Clone_figure1_2x.png">
+<meta name="twitter:title" content="了解一下 Mesh 网络">
+<meta name="twitter:description" content="一切还要从上一篇文章说起在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（懒）一直拖到了现在。 那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。">
+<meta name="twitter:image" content="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_1.jpg">
 
 
 
@@ -128,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="https://zesming.com/apfs/"/>
+  <link rel="canonical" href="https://zesming.com/learn-mesh/"/>
 
 
 
@@ -138,7 +144,7 @@
   };
 </script>
 
-  <title>简单谈谈 APFS | Ming's pages</title>
+  <title>了解一下 Mesh 网络 | Ming's pages</title>
   
 
 
@@ -393,7 +399,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zesming.com/apfs/"/>
+    <link itemprop="mainEntityOfPage" href="https://zesming.com/learn-mesh/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zesming"/>
@@ -410,7 +416,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">简单谈谈 APFS
+          <h1 class="post-title" itemprop="name headline">了解一下 Mesh 网络
 
               
             
@@ -436,7 +442,7 @@
                 
               
 
-              <time title="创建时间：2017-04-08 15:32:53" itemprop="dateCreated datePublished" datetime="2017-04-08T15:32:53+08:00">2017-04-08</time>
+              <time title="创建时间：2019-02-23 17:20:22" itemprop="dateCreated datePublished" datetime="2019-02-23T17:20:22+08:00">2019-02-23</time>
             
 
             
@@ -454,14 +460,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/macOS/" itemprop="url" rel="index"><span itemprop="name">macOS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a></span>
 
                 
                 
@@ -480,8 +479,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/apfs/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/apfs/" itemprop="commentCount"></span>
+                <a href="/learn-mesh/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/learn-mesh/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -489,7 +488,7 @@
 
           
           
-            <span id="/apfs/" class="leancloud_visitors" data-flag-title="简单谈谈 APFS">
+            <span id="/learn-mesh/" class="leancloud_visitors" data-flag-title="了解一下 Mesh 网络">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -514,7 +513,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.5k</span>
+                <span title="本文字数">3.6k</span>
               
 
               
@@ -528,7 +527,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -548,72 +547,63 @@
       
 
       
-        <h3 id="何为-APFS？"><a href="#何为-APFS？" class="headerlink" title="何为 APFS？"></a>何为 APFS？</h3><p>2016 年 WWDC 的时候，苹果甩出了一个名为 APFS 的文件系统，就是 Apple File System 的缩写。刚听到苹果又推出了一个文件系统的时候，我其实并没有特别惊讶，甚至感觉有些习惯了，因为自打苹果用上了 HFS 后，每隔一段时间就会来一个变种，甚至说每一个设备可能都会有一种特殊的 HFS（据说 iOS 里面使用的 HFS 也是个独特的变种，连 macOS 的同学都不知道他们自己搞了一套），后来又有了 HFS+。</p>
-<p>不过按照苹果的习惯，一旦一个技术为了适应苹果的产品而被改来改去，杂乱无章的时候，就意味着在不久的将来肯定会有个全新的技术来替代它，例如早些年用 clang 替换掉了 GCC，现在正在用 Swift 替换 Objective-C。</p>
-<p>在 iOS 10.3 发布之前，我完全没有仔细地去了解过这个玩意儿，直到 iOS 10.3 beta 版出来后，大家惊呼 APFS 现身带来了更多的可用空间，我才意识到这个技术可能又是一个苹果新造的轮子。</p>
-<p>果不其然，在和 HFS 抗争多年后，苹果终于发现这垃圾玩意已经没有改的价值了，所以另起炉灶，重新搞一套。传闻 APFS 项目中负责人为了保证不受其它已有文件系统的影响，不去看任何一个文件系统的实现原理和机制，从零开始，针对苹果现有的设备形态，打造的一个全新的文件系统。</p>
-<p>在苹果官网 APFS 的介绍页，介绍了它的一些主要特性：</p>
-<blockquote>
-<p>Apple File System is a 64-bit file system supporting over 9 quintillion files on a single volume. This state-of-the-art file system features cloning for files and directories, snapshots, space sharing, fast directory sizing, atomic safe-save primitives, and improved filesystem fundamentals, as well as a unique copy-on-write design that uses I/O coalescing to deliver maximum performance while ensuring data reliability.</p>
-</blockquote>
-<p>简单来说，主要还是从效率和安全性方面做了很多改进。</p>
+        <h2 id="一切还要从上一篇文章说起"><a href="#一切还要从上一篇文章说起" class="headerlink" title="一切还要从上一篇文章说起"></a>一切还要从上一篇文章说起</h2><p>在去年的初夏，我写了一篇博文，分享了一下我家的网络搭建方案。说来惭愧，本来这篇文章应该是在上篇博文之后不久就写出来的，结果因为各种事儿（<del>懒</del>）一直拖到了现在。</p>
+<p>那为什么要写 Mesh 呢？上次文章在朋友圈中嘚瑟后，没多久被某大神点评了下，并建议了解下 Mesh。</p>
 <a id="more"></a>
-<h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><h4 id="Clones"><a href="#Clones" class="headerlink" title="Clones"></a>Clones</h4><p>通俗点来讲，就是平时我们拷贝文件。按照我们传统思维来讲，拷贝一个文件到另一个地方还需要在磁盘上占用相同空间，并且视文件大小还会有相应的拷贝时间（例如拷一个 1GB 左右的大姐姐影视作品到别的地方，可能就需要另外占用 1GB 空间，并且还需要差不多 1s 左右的拷贝时间）。</p>
-<p>但是在 APFS 下，一个 clone 操作基本上是瞬间完成，不管大小，并且也不会额外占用磁盘空间。</p>
-<p>那它是咋做的呢？其实有点像是我们平时写代码时用的浅拷贝，仅仅是创建了个副本指针，指向了相同的一块区域。</p>
-<p><img src="/images/Clone_figure1_2x.png" alt="clone-1"></p>
-<p>可是问题来了，我们都知道，在浅拷贝操作后，如果内容发生了变更，那么所有指向这块内存的变量都会跟着改变，而在文件系统中如果这么做，那和链接有什么区别？我们希望的就是保留变更啊。好吧，你们要不同，APFS 就仅仅保留了不同。</p>
-<p><img src="/images/Clone_figure2_2x.png" alt="clone-2"></p>
-<p>听起来有点和 Git 的一些做法类似啊。</p>
-<h4 id="Snapshots"><a href="#Snapshots" class="headerlink" title="Snapshots"></a>Snapshots</h4><p>快照通常情况下是一种用于备份的方式，操作系统同时可以使用快照快速还原到某一个时间点。有别于传统的备份，快照不管是从时间还是从空间占用都不大。</p>
-<p>APFS 的快照也类似，不过从介绍来看，和传统的快照类似，只记录 diff，所以说创建了多个快照也不会特别大。</p>
-<p><img src="/images/Snapshot_figure1_2x.png" alt="snapshot-1"></p>
-<p>得益于 clone 的思路，创建快照也是一个简单的“指针”创建和引用，由于速度快，创建快照可以在不打断用户操作的前提下对数据进行备份</p>
-<p><img src="/images/Snapshot_figure2_2x.png" alt="snapshot-2"></p>
-<p>不过不巧的是，由于 APFS 不支持硬链接，还不支持现阶段的 Time Machine，所以为啥只有 iOS 现在用上了 APFS 而 macOS 还没有（其实想用也是可以用的，只不过限制多多，想必苹果可能也没有做好软件层面的适配），想必有一部分是这个原因。</p>
-<h4 id="Space-Sharing"><a href="#Space-Sharing" class="headerlink" title="Space Sharing"></a>Space Sharing</h4><p>这个技术就有点厉害了，回想下我们在用 Windows 的时候，如果不加控制或者在一开始给系统盘分配的空间不多的话，会在使用一段时间后收到系统警告，告诉你系统盘空间不足。</p>
-<p>通常面对这样的情况，我们可能会尝试删一些文件或者软件啊，高端点的玩家可能还会调整下磁盘分区，再高端点的玩家可能直接就选择重装系统了。完后为了防止再出现这样的问题，可能就会不再系统盘装软件放文件之类的，但是这样来说可能有会产生其他奇奇怪怪不是特别好的问题，总之非常头疼。</p>
-<p>虽说用 Mac 后就没有再分过区，但是 Space Sharing 这项技术解决的就是上述问题。</p>
-<p>Space Sharing 允许多个文件系统在物理卷上共享相同的底层可用空间。与为每个文件系统预先分配固定数量的空间的刚性分区方案不同，APFS格式的卷大小可以在不重新分区的情况下增长和缩小。</p>
-<p>APFS 容器中的每个卷都会给操作系统报告相同的可用磁盘空间，这相当于容器的总可用磁盘空间。例如，对于分区A（已用 10GB）和分区B（已用 20GB）的容量为 100GB 的 APFS 容器，显示的 分区A 和 B 的可用空间均为 70GB（100GB - 10GB - 20GB）。</p>
-<p><img src="/images/space_sharing.png" alt="space_sharing-1"></p>
-<h4 id="Encryption"><a href="#Encryption" class="headerlink" title="Encryption"></a>Encryption</h4><p>苹果在安全方面一向比较严格，想想 FBI 为了给一个 iPhone 5c 磁盘解密从而拿到里面的数据，威逼利诱苹果帮忙，结果苹果却以除了用户谁都解不开为由拒绝，尽管到后来还是被解开了，但是从历年来有关苹果设备出现的安全问题的情况来看，因为设备和技术原因的基本没有。</p>
-<p>而随着 macOS 上 FileVault 的出现，全盘加密几乎成了 macOS 的标配。想想几年前还在用 Windows 的时候，换了块硬盘，拿着老硬盘放到移动硬盘盒里就能当移动硬盘使用继续读取原来的数据，虽说 Windows 也有全盘加密的技术，但是从用户体验的角度来讲，苹果无疑是让你在不知不觉中就被保护了起来，这倒让我想起了一句话：真正的科技是让你感受不到它的存在。</p>
-<p>APFS 里面，安全是它的设计基础，而针对不同的设备，APFS 加密方式也不尽相同。APFS 为容器中的每个卷提供了以下三种加密模型：</p>
-<ul>
-<li>无加密</li>
-<li>单键加密</li>
-<li>多键加密</li>
-</ul>
-<p>其中多键加密最为安全（这不废话么），官网介绍说，哪怕在你的设备物理安全受到威胁并且获取到访问权限，也不能解开 APFS 保护下的磁盘数据。其实上面这句话我没怎么理解，但是猜测可能是类似 macOS 的登录密码被破解了，但是磁盘数据仍然不会被解密，具体的还是日后再研究吧。</p>
-<p>得益于它加密功能的实现，我们以后想要删除数据就没必要反复覆盖磁盘数据了，直接删除掉密钥就 OK 啦，相较于前者，简单快速。</p>
-<h4 id="Crash-Protection-amp-Atomic-Safe-Save"><a href="#Crash-Protection-amp-Atomic-Safe-Save" class="headerlink" title="Crash Protection &amp; Atomic Safe-Save"></a>Crash Protection &amp; Atomic Safe-Save</h4><p>作为文件系统，最重要的就是要保证数据的安全，而在我们平时日常使用过程中，难免会遇到一些突发情况，导致数据错误甚至丢失，所以文件系统作为操作系统和磁盘中间管理数据的系统，强大的数据安全保护性是一个很重要的功能。</p>
-<p>APFS 利用 copy-on-write 这项技术，可以在数据真正完成更新后再写入，期间如果发生了异常中断，诸如 Crash，那么也不会影响原有数据。而这种原子性操作，对于用户而言，只有两种状态——完全更新和啥都没变，没有了中间状态就会减少出现异常情况的可能性。</p>
-<p>从正常的使用来看，我们操作过程中可能出现的问题，APFS 已经做了保护，并且有别于其它文件系统的数据一致性复杂校验，APFS 原子性操作从某种程度上是提高了效率。</p>
-<p>不过提到数据校验，我从一些文章中发现，苹果的校验机制挺有意思，只会校验元数据，而用户数据则不管，WWDC 上 APFS 工程师说到，之所以这么做，是因为元数据相较于用户数据更重要，但是校验成本低，并且所有苹果设备中都有 ECC 纠错保护，加上 NAND 的冗余数据检验纠错，已经足够了。其实最有意思的是，苹果工程师对自己的设备很有信心，认为他们的设备通常不会遇到数据错误，设备本身误码率已经相当低了。</p>
-<p>至于这种信心从何而来我不得而知，不过从专门用于数据存储阵列的 ZFS 文件系统都可能会出现数据错误，并且它们的硬件可是上百万美元级别的，那么相较于 iPhone 和 Mac 中的 TLC 芯片，如何保证数据不出错？</p>
-<h4 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h4><p>性能可能是 APFS 另一个重要特性，正是因为苹果认为 HFS 不能够适用于 SSD，才重新开发 APFS 并着重优化 SSD 的存储。</p>
-<p>SSD 和 HDD 在本质上有着很大的差别，除了 SSD 不需要寻道以外，它的存储方式也是不一样的，例如为了保证 SSD 整体的寿命，闪存主控会把写入的数据均匀分散在各个块中，因为 SSD 内的闪存的寿命是由写入次数决定的。而和上层，也就是文件系统层的交互，则是通过一个类似于虚拟内存一样的，被称作 FTL 的东西负责处理的，它会在块地址和真正存储位置中间建立个映射关系。</p>
-<p>除此之外，SSD 有别于 HDD 还有个点，就是空间回收，HDD 通常的做法就是，这块数据不要了，我就标记为这块是空闲空间，以后用到的话再覆盖掉就好了，没必要删，所以说如果我们想要恢复数据，是一件挺容易的事情。而 SSD 则没办法这样做，因为在 SSD 中，只有空数据块才可以直接执行写入操作，而非空的要先擦除掉才能写入。</p>
-<p>这样看来，SSD 和 HDD 的区别仅仅是多了一步擦除操作而已，但实际上并非如此。在 SSD 中，数据存储的最小单位是页（page），一个页的大小一般是 4KB，若干个页面又被组合成块（block），一个块的大小一般是 512KB。由于硬件方面的限制，SSD 单独对某个页面进行读写的操作，但擦除操作却只能对整个块进行，也就是说，一旦擦除就必须一次性擦除整个块。想想看，如果操作系统要让 SSD 改写某个页面的数据，SSD 需要执行怎样的操作呢：</p>
-<ol>
-<li>将要改写的目标页面所在的整个块的数据读取到缓存。</li>
-<li>在缓存中修改目标页面的数据。</li>
-<li>对整个块执行擦除操作。</li>
-<li>将缓存中的数据重新写入整个块中。</li>
-</ol>
-<p>一个简单的 4KB 操作可能就需要把整个 512KB 的块都操作一遍，虽说 SSD 读写速度快，但这样无谓的折腾也是挺影响效率的。也正是因为这样的原因，SSD 的主控中通常会提供一个 TRIM 的命令，操作系统在删除文件时可以向主控发送 TRIM 命令告诉它哪些数据不需要了，主控拿到命令后不着急删除，而是定期 GC 一下。</p>
-<p>不同类型的主控所提供的 TRIM 也不太一样，APFS 虽说也支持了 TRIM，并且做出了一些改进，但是按照苹果的风格，应该还是先支持自家产品使用的 SSD。</p>
-<p>另外，APFS 也通过 I/O QoS（服务质量）对不同的数据操作请求分优先级，将用户可以立刻感知到的操作优先级提高，后台任务就可以放放。听起来和 iOS 里面的 UI 操作类似，这种高用户体验的小设计苹果也是玩的很转啊。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当然还有例如稀疏文件支持，快速目录大小调整等特性，但是也存在着我看来不是特别靠谱的地方，就像上面我们提到的数据校验那一块，看起来有些想当然。不过针对现阶段硬件进行的软件层面的优化，肯定会比 HFS 这种杂乱老旧并且臃肿的文件系统要好的吧。毕竟在这个世界上，能够和苹果比软硬件结合开发，应该也没谁了吧。</p>
-<p>从 iOS 10.3 可以显而易见的看出优势，哪怕只是多了几个G的可用空间，也是棒棒哒！（不过你们难道没发现通过 iOS OTA 升级无损切换文件系统其实也是一件很厉害的事么？不过从刚才我们分析 copy-on-write 这项技术来看，应该也不会有啥问题。）</p>
-<p>虽说 macOS 目前还是不能从 GUI 上找到什么 APFS 的痕迹，但是可以通过一些命令行方式创建一个 APFS 卷（分区）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdiutil create -fs APFS -size 1GB foo.sparseimage</span><br></pre></td></tr></table></figure>
-<p>不过要注意的是，现在的 macOS 的 Time Mechine 并不兼容 APFS，FileVault 也是不兼容的，最主要的是，目前正式版本 macOS 10.12.4 是不支持 APFS 的分区当作启动分区的。</p>
-<p>所以简单来说，体验一下 APFS 没啥问题，想日常使用，就算了，等 macOS 什么时候兼容 APFS，应该会是有很大程度的用户体验提升吧。</p>
-<p>虽说苹果直接扔掉了 HFS 开发了 APFS，但是我感觉当前版本的 APFS 应该不会成为一个主流的文件系统，首先一点就是苹果还没有开源，至于到底开不开源不得而知。另外这种针对 SSD 专门开发的文件系统，是否对于 HDD 有支持，我们也不清楚。处于自家生态链的考虑，抛弃掉32位设备的支持，也会让它在一段时间内只会出现在苹果的设备上。</p>
-<p>存在一些遗憾也在所难免，不过作为用户能够更好地体验苹果产品也是挺爽的。</p>
-<p>附：<a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/APFS_Guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40016999-CH1-DontLinkElementID_18" target="_blank" rel="noopener">Apple File System Guide</a></p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_1.jpg" alt="1"></p>
+<p>还别说，这一块之前真的没有怎么了解过，Google 一番后发现这个其实就是<a href="https://zh.wikipedia.org/wiki/%E7%BD%91%E7%8A%B6%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">网状网络</a>，有着悠久的历史，并且应该是在某本教科书上还出现过它的身影。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_2.jpg" alt="2"></p>
+<p>其中 <code>(e)网状拓扑结构</code> 应该说的就是它。</p>
+<p>然后我竟无意间发现，家中的主路由器——华硕 AC88u，竟然支持 Mesh 的网络搭建，华硕官方称之为 <a href="https://www.asus.com/microsite/AiMesh/en/index.html" target="_blank" rel="noopener">AiMesh</a>。既然这东西就在身边，那我就顺藤摸瓜看看这究竟是个什么高科技。</p>
+<h2 id="先了解下-Mesh-是什么"><a href="#先了解下-Mesh-是什么" class="headerlink" title="先了解下 Mesh 是什么"></a>先了解下 Mesh 是什么</h2><p>定义直接从维基百科上抠出来吧。</p>
+<blockquote>
+<p><strong>网状网络</strong>（<a href="https://zh.wikipedia.org/wiki/%E8%8B%B1%E6%96%87" target="_blank" rel="noopener">英文</a>：Mesh Network）是一种在<a href="https://zh.wikipedia.org/w/index.php?title=%E7%B6%B2%E8%B7%AF%E7%AF%80%E9%BB%9E&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">网络节点</a>间透过动态<a href="https://zh.wikipedia.org/wiki/%E8%B7%AF%E7%94%B1" target="_blank" rel="noopener">路由</a>的方式来进行资料与控制指令的传送。这种网络可以保持每个节点间的连线完整，当网络拓扑中有某节点失效或无法服务时，这种架构允许使用“跳跃”的方式形成新的路由后将讯息送达传输目的地。</p>
+</blockquote>
+<p>简单点来说，就是一种拓扑结构，而现在常见的无线 Mesh 具有<strong>高性价比</strong>（因为节点间可以通过无线互连，减少了对有线的依赖），<strong>可拓展性强</strong>（添加设备简单配置即可），<strong>部署快捷</strong>（同样是因为无线互连，比较方便），<strong>应用场景广</strong>（除了常见的人员密集场所，甚至可以用到轨道交通中），和<strong>高可靠性</strong>（Mesh 中各 AP 之间是全连接，有一个挂掉了可以自动连接到别的 AP）的优点。</p>
+<p>下图是一个比较简单的 Mesh 网络。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_3.jpg" alt="3"></p>
+<p>这个网络中有多个 Mesh AP，负责接入服务还有 Mesh 服务，中间还有个负责 Mesh AP 和 AC 之间通信的 Mesh Portal Point，如果 Mesh AP 多的话，可能还需要加一个负责补充 Mesh AP 的 Mesh Point，它只负责和 Mesh AP 之间通信，不直接和客户端通信。</p>
+<h3 id="自我修复"><a href="#自我修复" class="headerlink" title="自我修复"></a>自我修复</h3><p>上述提到的众多优点中，高可靠性是 Mesh 网络中比较重要的一个特性。</p>
+<p>我们现在常见的网络拓扑结构中，大多数在出现单点故障时，都会影响网络的稳定性，例如树状拓扑结构：</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_4.jpg" alt="4"></p>
+<p>上图中左侧的路由器故障使得下游的 AP 断连，从而导致客户端设备无法正常访问网络了。那么同样的问题对于 Mesh 网络是怎么处理的呢？我们还拿上面的 Mesh 网络拓扑图来展示：</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_5.jpg" alt="5"></p>
+<p>我们假设中间的 MPP 设备出现了故障，那么这个网络依然能够保持可用性。其实，如果在显示网络环境中，出现了比图示更严重的故障，导致后方的设备也掉线了，那么基于 Mesh Wi-Fi的自我修复，则可预防网络环境瘫痪的情境发生。其实就是运用 Mesh Wi-Fi 网状网络中每个接入点都能相互联机、沟通的特性。当网络中的某个节点故障时，Mesh Wi-Fi网络会绕过故障节点，让功能正常的节点相互连结、运作，并且同时自动寻找封包传输时的最佳路径，保持网络内的联机沟通都能正常运作。</p>
+<h3 id="无线漫游"><a href="#无线漫游" class="headerlink" title="无线漫游"></a>无线漫游</h3><p>Mesh 网络有了自我修复的特性，能够保证网络的高可靠性，除此之外，我其实更关心的是它的无线漫游特性。</p>
+<p>上篇博文我提到了我家因为有个非常长的走廊，导致需要两个无线路由器才可以勉强覆盖到生活和休息区。两个无线 AP 就会导致设备如果从一个屋子移动到另一个屋的时候，会有一次信号源的切换，然后就会断一下网，通常浏览网页，聊天等不需要一直保持连接的操作，不会有特别大的感受，但是当在屋子里边走边语音，视频，玩游戏的时候，就会感受特别明显，肯定要断线重连。</p>
+<p><img src="https://images-13569712.mtmss.com/posts/home_network_setup/2.JPG" alt="6"></p>
+<p>这就很不爽啊，那么无线漫游正好能解决这样的问题。</p>
+<p>所谓无线漫游，是指设备信号从一个 AP 切换到另一个 AP 的时候所需的时间控制在毫秒级，且能通过 AC 保证无需重连。</p>
+<p>一般在设备切换信号源之前，通过 802.11k – Neighbor Report 标准，收集邻近的 AP 信息列表，然后信号弱的时候可以自动挑选 AP 切换过去，同时还需要通过 802.11v – Wireless network management 标准，保证挑选到的 AP 是信号良好的，另外，在切换之前，设备也会利用 802.11r – Fast Transition Roaming 标准，使用一种名为“快速基本服务设置转换 (FT)”的功能更快地进行鉴定。FT 适用于预共享密钥 (PSK) 和 802.1X 鉴定方法。利用上述三个标准，可以保证在进行信号切换的时候，基本无痛无感。</p>
+<p>苹果大大有一篇 <a href="https://support.apple.com/zh-cn/HT202628" target="_blank" rel="noopener">《在 iOS 上通过 802.11k、802.11r 和 802.11v 实现 Wi-Fi 网络漫游》</a>，详细介绍了 iOS 设备在这三个标准下的工作原理，感兴趣的同学可以看看。</p>
+<h2 id="Mesh-改造"><a href="#Mesh-改造" class="headerlink" title="Mesh 改造"></a>Mesh 改造</h2><p>因为 Mesh 属于一个网络结构，并不是一个标准，所以想要组建 Mesh 网络还需要一整套同一厂商的设备，例如家用的华硕的 AiMesh，Linksys 的 Mesh 路由，以及各种大厂提供的一整套商用解决方案。</p>
+<p>拿我们家的网络情况来举例子，下图是原来的网络拓扑图</p>
+<p><img src="https://images-13569712.mtmss.com/posts/home_network_setup/3.png" alt="7"></p>
+<p>还有我们家原来的路由器摆放位置</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_8.jpg" alt="8"></p>
+<p>因为次卧的设备接入的是有线，并没有设立 AP，所以从客厅到主卧的途中会有那么一点是“客厅不爱，主卧不管”的位置。而这个位置，正好是在次卧的飘窗附近，这里又正好是我的书桌。</p>
+<p>房屋的结构肯定没法动了，AP 的位置也不可能有大的变化，因为弱电强电的接口已经留好了，那么我就需要在次卧加个 AP。</p>
+<p>三个 AP 要是没有漫游那就可有的受了，既然主路由支持 AiMesh，那就全都换成华硕的路由器不就行了。于是我把次卧的斐讯 K3 换成了华硕 AC86u，负责主卧和阳台的无线覆盖，次卧新购一台华硕的 Blue Cave，不大，放在桌面上也挺好看，负责次卧书桌（因为靠近窗户，楼下以及路对面的公交车站也有无线信号）的无线覆盖。</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_8.jpg" alt="9"></p>
+<p>接下来就是调整 AP 的接入了，基于 Mesh 的网络拓扑图就成了如下图所示</p>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_10.jpg" alt="10"></p>
+<p>AC88u 作为主路由，接入外网，然后通过交换机和两个副路由进行 LAN to WAN 的有线连接，通过 AiMesh 实现有线回程，同时，这仨之间还可以通过 WiFi 实现无线回程，当有线出现问题的时候可以切换到无线保证稳定，尽管家用网络中这种情况基本不太可能发生。</p>
+<p>因为华硕的 Mesh 是支持有线回程的，对于双频路由器来说，有线比无线更加稳定可靠，因为无线需要有一个频段一直保持通讯，通常优先 5Ghz，虽说带宽方面基本够用，但在极端数据传输的情况下，仍然会有影响。</p>
+<p>具体的效果因为没有专门进行数据分析，就不贴了，实际感受就是抱着 iPad 满屋跑和老爹老妈打着 FaceTime 也没有掉线，并且没有出现过信号不佳的情况了。</p>
+<h2 id="Mesh-更广泛的作用"><a href="#Mesh-更广泛的作用" class="headerlink" title="Mesh 更广泛的作用"></a>Mesh 更广泛的作用</h2><p>从上面提到的特性来看，Mesh 非常适合在覆盖面积大，网络质量要求高的环境下使用，那么常见的学校，医院等人口密集场所，甚至是港口，轨道交通等需要高可靠性网络的地方，都可以使用。</p>
+<p>例如 H3C 所提供的地铁无线 Mesh 部署方案</p>
+<blockquote>
+<p>地铁是现代城市里不可缺少的交通工具。在一个地铁系统里，控制信息和多媒体信息需要实时的传递给快速移动的列车，从而有效的控制列车的运行，并且为乘客提供多种网络服务。</p>
+<p>如下图所示，一个地铁无线 Mesh 网络里，车载 MP 和轨旁 MP 均采用 Fit MP，受 AC 集中管理，多个轨道 MP 沿轨道进行部署。车载 MP 不停扫描新的轨旁 MP，并选择信号质量最好的两个轨旁 MP 与之建立 Mesh 连接，主 Mesh 连接用于车载 MP 与轨旁有线网络之间的数据传输，从连接用于 Mesh 连接的切换备份。</p>
+</blockquote>
+<p><img src="http://images-13569712.mtmss.com/posts/learn_mesh/learn_mesh_11.png" alt="11"></p>
+<p>还例如美军已经使用无线网状网络去连接在战场上的军用电脑，这可以让军队知道每一个军人的位置，这样就可以加强军队协同行动的能力。</p>
+<p>那么在城市建设中，安装可以接入 Mesh 网络的电子水表或电表，利用这些水表或电表可以一个接着一个传送他们的读数到水电公司，如此就不需要额外抄表人员或是另外安装电缆线传送数据。</p>
+<p>利用 Mesh 这种强大的拓展性，还可以脑洞更多应用场景，随着无线设备的功能提升，给用户带来的体验性上的提升也会越来越高。</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>可能有人会说，搞这么多路由器或者专门买一套网络设备组建 Mesh 真的有必要么？</p>
+<p>一个好的技术，或者说产品，是应该让你不用再去为之而操心，正所谓“真正的科技是让你感受不到科技的存在”，那么从这一点来讲，一些小的投入所带来的体验上的巨大提升就是值得的。</p>
+<p>不过对于这些技术的选型其实都是因人而异的，那么从我家里的情况来看，目前这个还是挺适合我的，挑选一个适合自己的解决方案也是很重要的。</p>
+<p>接下来的，直接干就完了。</p>
 
       
     </div>
@@ -666,13 +656,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/APFS/" rel="tag"># APFS</a>
+            <a href="/tags/家庭/" rel="tag"># 家庭</a>
           
-            <a href="/tags/HFS/" rel="tag"># HFS</a>
+            <a href="/tags/网络/" rel="tag"># 网络</a>
           
-            <a href="/tags/SSD/" rel="tag"># SSD</a>
-          
-            <a href="/tags/file-system/" rel="tag"># file system</a>
+            <a href="/tags/无线漫游/" rel="tag"># 无线漫游</a>
           
         </div>
       
@@ -685,8 +673,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/respberry-centos/" rel="next" title="树莓派的初探">
-                <i class="fa fa-chevron-left"></i> 树莓派的初探
+              <a href="/home-network-setup/" rel="next" title="网线必须有——家用网络搭建心得">
+                <i class="fa fa-chevron-left"></i> 网线必须有——家用网络搭建心得
               </a>
             
           </div>
@@ -694,10 +682,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hyperloop/" rel="prev" title="Hyperloop，让发布简洁高效">
-                Hyperloop，让发布简洁高效 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -999,7 +983,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为-APFS？"><span class="nav-number">1.</span> <span class="nav-text">何为 APFS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要特性"><span class="nav-number">2.</span> <span class="nav-text">主要特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Clones"><span class="nav-number">2.1.</span> <span class="nav-text">Clones</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Snapshots"><span class="nav-number">2.2.</span> <span class="nav-text">Snapshots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Space-Sharing"><span class="nav-number">2.3.</span> <span class="nav-text">Space Sharing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Encryption"><span class="nav-number">2.4.</span> <span class="nav-text">Encryption</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Crash-Protection-amp-Atomic-Safe-Save"><span class="nav-number">2.5.</span> <span class="nav-text">Crash Protection &amp; Atomic Safe-Save</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Performance"><span class="nav-number">2.6.</span> <span class="nav-text">Performance</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一切还要从上一篇文章说起"><span class="nav-number">1.</span> <span class="nav-text">一切还要从上一篇文章说起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先了解下-Mesh-是什么"><span class="nav-number">2.</span> <span class="nav-text">先了解下 Mesh 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自我修复"><span class="nav-number">2.1.</span> <span class="nav-text">自我修复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无线漫游"><span class="nav-number">2.2.</span> <span class="nav-text">无线漫游</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mesh-改造"><span class="nav-number">3.</span> <span class="nav-text">Mesh 改造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mesh-更广泛的作用"><span class="nav-number">4.</span> <span class="nav-text">Mesh 更广泛的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">5.</span> <span class="nav-text">结尾</span></a></li></ol></div>
             
 
           </div>
